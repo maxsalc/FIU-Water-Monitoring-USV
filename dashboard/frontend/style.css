@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 1rem;
+    background: #111;
+    color: #eee;
+}
+
+#dashboard-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+}
+
+#map {
+    height: 600px;
+    border: 2px solid #444;
+}
+
+#telemetry-panel {
+    background: #181818;
+    padding: 1rem;
+    border: 1px solid #333;
+}
+
+@media (max-width: 900px) {
+    #dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+
+    #map {
+        height: 400px;
+    }
+}
