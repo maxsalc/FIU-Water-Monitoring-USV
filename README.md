@@ -173,6 +173,243 @@ with real sensor-reading code.
 
 ---
 
+# Orange Pi Initial Setup
+
+These instructions are intended for first-time Linux/ROS2 setup on the Orange Pi.
+
+Target platform:
+
+* Orange Pi
+* Ubuntu 22.04 Jammy
+* ROS2 Humble Hawksbill
+
+---
+
+# 1. Open a Terminal
+
+After booting Ubuntu on the Orange Pi:
+
+* click the terminal icon
+* or press:
+
+```bash
+Ctrl + Alt + T
+```
+
+---
+
+# 2. Update Ubuntu
+
+Run:
+
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+---
+
+# 3. Install Git
+
+Git is required to download the project repository.
+
+Install it with:
+
+```bash
+sudo apt install git -y
+```
+
+Verify installation:
+
+```bash
+git --version
+```
+
+---
+
+# 4. Clone the Repository
+
+Move to the home directory:
+
+```bash
+cd ~
+```
+
+Clone the project:
+
+```bash
+git clone https://github.com/maxsalc/FIU-Water-Monitoring-USV.git
+```
+
+Move into the repository:
+
+```bash
+cd FIU-Water-Monitoring-USV
+```
+
+---
+
+# 5. Install ROS2 Humble
+
+Add ROS2 package sources:
+
+```bash
+sudo apt install software-properties-common -y
+sudo add-apt-repository universe
+```
+
+Add ROS2 GPG key:
+
+```bash
+sudo apt update
+sudo apt install curl -y
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+```
+
+Add ROS2 repository:
+
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+```
+
+Update package list:
+
+```bash
+sudo apt update
+```
+
+Install ROS2 Humble Desktop:
+
+```bash
+sudo apt install ros-humble-desktop -y
+```
+
+Install ROS build tools:
+
+```bash
+sudo apt install python3-colcon-common-extensions -y
+```
+
+---
+
+# 6. Source ROS2
+
+Every new terminal session needs ROS2 sourced.
+
+Run:
+
+```bash
+source /opt/ros/humble/setup.bash
+```
+
+Verify ROS2 works:
+
+```bash
+ros2 --help
+```
+
+---
+
+# 7. Build the Workspace
+
+Move into the ROS2 workspace:
+
+```bash
+cd ~/FIU-Water-Monitoring-USV/ros2_ws
+```
+
+Build the project:
+
+```bash
+colcon build
+```
+
+---
+
+# 8. Source the Workspace
+
+After building:
+
+```bash
+source install/setup.bash
+```
+
+---
+
+# 9. Launch the Robot Stack
+
+Run:
+
+```bash
+ros2 launch usv_bringup robot.launch.py
+```
+
+This launches:
+
+* sensor bridge node
+* navigation node
+* motor bridge node
+
+---
+
+# 10. Test ROS2 Topics
+
+Open another terminal.
+
+Source ROS2 again:
+
+```bash
+source /opt/ros/humble/setup.bash
+```
+
+Source the workspace again:
+
+```bash
+cd ~/FIU-Water-Monitoring-USV/ros2_ws
+source install/setup.bash
+```
+
+List topics:
+
+```bash
+ros2 topic list
+```
+
+Test GPS topic:
+
+```bash
+ros2 topic echo /usv/gps
+```
+
+Test pH topic:
+
+```bash
+ros2 topic echo /usv/ph
+```
+
+Test water temperature:
+
+```bash
+ros2 topic echo /usv/water_temperature_c
+```
+
+---
+
+# Optional: Auto-source ROS2 on Boot
+
+To avoid manually sourcing ROS2 every terminal session:
+
+```bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+```
+
+Then reload bash:
+
+```bash
+source ~/.bashrc
+```
+---
+
 # Robot Startup Instructions
 
 Target platform:
