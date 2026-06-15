@@ -1,0 +1,37 @@
+[3.071s] Invoking command in '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src/usv_navigation': PYTHONPATH=/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/usv_navigation build --build-base /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build install --record /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/install.log --single-version-externally-managed install_data
+[3.785s] running egg_info
+[3.787s] creating ../../build/usv_navigation/usv_navigation.egg-info
+[3.788s] writing ../../build/usv_navigation/usv_navigation.egg-info/PKG-INFO
+[3.789s] writing dependency_links to ../../build/usv_navigation/usv_navigation.egg-info/dependency_links.txt
+[3.789s] writing entry points to ../../build/usv_navigation/usv_navigation.egg-info/entry_points.txt
+[3.790s] writing requirements to ../../build/usv_navigation/usv_navigation.egg-info/requires.txt
+[3.790s] writing top-level names to ../../build/usv_navigation/usv_navigation.egg-info/top_level.txt
+[3.791s] writing manifest file '../../build/usv_navigation/usv_navigation.egg-info/SOURCES.txt'
+[3.793s] reading manifest file '../../build/usv_navigation/usv_navigation.egg-info/SOURCES.txt'
+[3.794s] writing manifest file '../../build/usv_navigation/usv_navigation.egg-info/SOURCES.txt'
+[3.795s] running build
+[3.796s] running build_py
+[3.797s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build
+[3.797s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib
+[3.798s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation
+[3.799s] copying usv_navigation/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation
+[3.800s] copying usv_navigation/navigation_node.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation
+[3.801s] running install
+[3.802s] running install_lib
+[3.803s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation
+[3.805s] copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation
+[3.806s] copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation/navigation_node.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation
+[3.810s] byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation/__init__.py to __init__.cpython-310.pyc
+[3.811s] byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation/navigation_node.py to navigation_node.cpython-310.pyc
+[3.812s] running install_data
+[3.812s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/ament_index
+[3.814s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/ament_index/resource_index
+[3.815s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/ament_index/resource_index/packages
+[3.816s] copying resource/usv_navigation -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/ament_index/resource_index/packages
+[3.817s] copying package.xml -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/usv_navigation
+[3.817s] running install_egg_info
+[3.824s] Copying ../../build/usv_navigation/usv_navigation.egg-info to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation-0.0.1-py3.10.egg-info
+[3.826s] running install_scripts
+[3.863s] Installing navigation_node script to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/usv_navigation
+[3.863s] writing list of installed files to '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/install.log'
+[3.988s] Invoked command in '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src/usv_navigation' returned '0': PYTHONPATH=/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/usv_navigation build --build-base /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build install --record /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/install.log --single-version-externally-managed install_data

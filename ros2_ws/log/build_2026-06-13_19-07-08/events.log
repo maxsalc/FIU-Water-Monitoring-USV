@@ -1,0 +1,202 @@
+[0.000000] (-) TimerEvent: {}
+[0.001217] (usv_bringup) JobQueued: {'identifier': 'usv_bringup', 'dependencies': OrderedDict()}
+[0.001449] (usv_motor_bridge) JobQueued: {'identifier': 'usv_motor_bridge', 'dependencies': OrderedDict()}
+[0.001652] (usv_navigation) JobQueued: {'identifier': 'usv_navigation', 'dependencies': OrderedDict()}
+[0.001833] (usv_sensor_bridge) JobQueued: {'identifier': 'usv_sensor_bridge', 'dependencies': OrderedDict()}
+[0.001959] (usv_bringup) JobStarted: {'identifier': 'usv_bringup'}
+[0.019071] (usv_motor_bridge) JobStarted: {'identifier': 'usv_motor_bridge'}
+[0.029936] (usv_navigation) JobStarted: {'identifier': 'usv_navigation'}
+[0.040310] (usv_sensor_bridge) JobStarted: {'identifier': 'usv_sensor_bridge'}
+[0.098391] (-) TimerEvent: {}
+[0.199800] (-) TimerEvent: {}
+[0.300817] (-) TimerEvent: {}
+[0.401885] (-) TimerEvent: {}
+[0.502929] (-) TimerEvent: {}
+[0.603953] (-) TimerEvent: {}
+[0.704958] (-) TimerEvent: {}
+[0.805909] (-) TimerEvent: {}
+[0.907135] (-) TimerEvent: {}
+[1.008306] (-) TimerEvent: {}
+[1.109411] (-) TimerEvent: {}
+[1.210455] (-) TimerEvent: {}
+[1.311824] (-) TimerEvent: {}
+[1.413772] (-) TimerEvent: {}
+[1.515677] (-) TimerEvent: {}
+[1.616831] (-) TimerEvent: {}
+[1.717872] (-) TimerEvent: {}
+[1.819063] (-) TimerEvent: {}
+[1.920274] (-) TimerEvent: {}
+[2.021099] (-) TimerEvent: {}
+[2.122250] (-) TimerEvent: {}
+[2.223555] (-) TimerEvent: {}
+[2.324664] (-) TimerEvent: {}
+[2.425888] (-) TimerEvent: {}
+[2.527258] (-) TimerEvent: {}
+[2.627725] (usv_motor_bridge) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/usv_motor_bridge', 'build', '--build-base', '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/build', 'install', '--record', '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src/usv_motor_bridge', 'env': {'HOSTNAME': 'c851b85cf483', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup:/opt/ros/humble', 'PWD': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1'}, 'shell': False}
+[2.634783] (-) TimerEvent: {}
+[2.650437] (usv_sensor_bridge) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/usv_sensor_bridge', 'build', '--build-base', '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/build', 'install', '--record', '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src/usv_sensor_bridge', 'env': {'HOSTNAME': 'c851b85cf483', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup:/opt/ros/humble', 'PWD': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1'}, 'shell': False}
+[2.735208] (-) TimerEvent: {}
+[2.836586] (-) TimerEvent: {}
+[2.937916] (-) TimerEvent: {}
+[3.039450] (-) TimerEvent: {}
+[3.092333] (usv_navigation) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/usv_navigation', 'build', '--build-base', '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build', 'install', '--record', '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src/usv_navigation', 'env': {'HOSTNAME': 'c851b85cf483', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup:/opt/ros/humble', 'PWD': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1'}, 'shell': False}
+[3.113564] (usv_bringup) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/usv_bringup', 'build', '--build-base', '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build', 'install', '--record', '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src/usv_bringup', 'env': {'HOSTNAME': 'c851b85cf483', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup:/opt/ros/humble', 'PWD': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1'}, 'shell': False}
+[3.139570] (-) TimerEvent: {}
+[3.240641] (-) TimerEvent: {}
+[3.341727] (-) TimerEvent: {}
+[3.356586] (usv_sensor_bridge) StdoutLine: {'line': b'running egg_info\n'}
+[3.358387] (usv_sensor_bridge) StdoutLine: {'line': b'creating ../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info\n'}
+[3.359594] (usv_sensor_bridge) StdoutLine: {'line': b'writing ../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info/PKG-INFO\n'}
+[3.360918] (usv_sensor_bridge) StdoutLine: {'line': b'writing dependency_links to ../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info/dependency_links.txt\n'}
+[3.361764] (usv_sensor_bridge) StdoutLine: {'line': b'writing entry points to ../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info/entry_points.txt\n'}
+[3.362444] (usv_sensor_bridge) StdoutLine: {'line': b'writing requirements to ../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info/requires.txt\n'}
+[3.363103] (usv_sensor_bridge) StdoutLine: {'line': b'writing top-level names to ../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info/top_level.txt\n'}
+[3.363864] (usv_sensor_bridge) StdoutLine: {'line': b"writing manifest file '../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info/SOURCES.txt'\n"}
+[3.365687] (usv_sensor_bridge) StdoutLine: {'line': b"reading manifest file '../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info/SOURCES.txt'\n"}
+[3.367555] (usv_sensor_bridge) StdoutLine: {'line': b"writing manifest file '../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info/SOURCES.txt'\n"}
+[3.368909] (usv_motor_bridge) StdoutLine: {'line': b'running egg_info\n'}
+[3.369909] (usv_sensor_bridge) StdoutLine: {'line': b'running build\n'}
+[3.371020] (usv_sensor_bridge) StdoutLine: {'line': b'running build_py\n'}
+[3.372062] (usv_sensor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/build\n'}
+[3.373103] (usv_sensor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/build/lib\n'}
+[3.373751] (usv_sensor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/build/lib/usv_sensor_bridge\n'}
+[3.374592] (usv_sensor_bridge) StdoutLine: {'line': b'copying usv_sensor_bridge/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/build/lib/usv_sensor_bridge\n'}
+[3.375465] (usv_sensor_bridge) StdoutLine: {'line': b'copying usv_sensor_bridge/sensor_bridge_node.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/build/lib/usv_sensor_bridge\n'}
+[3.376141] (usv_sensor_bridge) StdoutLine: {'line': b'running install\n'}
+[3.377184] (usv_motor_bridge) StdoutLine: {'line': b'creating ../../build/usv_motor_bridge/usv_motor_bridge.egg-info\n'}
+[3.379791] (usv_sensor_bridge) StdoutLine: {'line': b'running install_lib\n'}
+[3.380649] (usv_motor_bridge) StdoutLine: {'line': b'writing ../../build/usv_motor_bridge/usv_motor_bridge.egg-info/PKG-INFO\n'}
+[3.381490] (usv_motor_bridge) StdoutLine: {'line': b'writing dependency_links to ../../build/usv_motor_bridge/usv_motor_bridge.egg-info/dependency_links.txt\n'}
+[3.382244] (usv_motor_bridge) StdoutLine: {'line': b'writing entry points to ../../build/usv_motor_bridge/usv_motor_bridge.egg-info/entry_points.txt\n'}
+[3.382955] (usv_motor_bridge) StdoutLine: {'line': b'writing requirements to ../../build/usv_motor_bridge/usv_motor_bridge.egg-info/requires.txt\n'}
+[3.383971] (usv_motor_bridge) StdoutLine: {'line': b'writing top-level names to ../../build/usv_motor_bridge/usv_motor_bridge.egg-info/top_level.txt\n'}
+[3.384776] (usv_sensor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages/usv_sensor_bridge\n'}
+[3.385452] (usv_motor_bridge) StdoutLine: {'line': b"writing manifest file '../../build/usv_motor_bridge/usv_motor_bridge.egg-info/SOURCES.txt'\n"}
+[3.386264] (usv_sensor_bridge) StdoutLine: {'line': b'copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/build/lib/usv_sensor_bridge/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages/usv_sensor_bridge\n'}
+[3.387078] (usv_sensor_bridge) StdoutLine: {'line': b'copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/build/lib/usv_sensor_bridge/sensor_bridge_node.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages/usv_sensor_bridge\n'}
+[3.388292] (usv_sensor_bridge) StdoutLine: {'line': b'byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages/usv_sensor_bridge/__init__.py to __init__.cpython-310.pyc\n'}
+[3.389239] (usv_sensor_bridge) StdoutLine: {'line': b'byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages/usv_sensor_bridge/sensor_bridge_node.py to sensor_bridge_node.cpython-310.pyc\n'}
+[3.390284] (usv_motor_bridge) StdoutLine: {'line': b"reading manifest file '../../build/usv_motor_bridge/usv_motor_bridge.egg-info/SOURCES.txt'\n"}
+[3.391082] (usv_sensor_bridge) StdoutLine: {'line': b'running install_data\n'}
+[3.391969] (usv_sensor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/share/ament_index\n'}
+[3.392763] (usv_sensor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/share/ament_index/resource_index\n'}
+[3.393525] (usv_sensor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/share/ament_index/resource_index/packages\n'}
+[3.394206] (usv_sensor_bridge) StdoutLine: {'line': b'copying resource/usv_sensor_bridge -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/share/ament_index/resource_index/packages\n'}
+[3.394854] (usv_sensor_bridge) StdoutLine: {'line': b'copying package.xml -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/share/usv_sensor_bridge\n'}
+[3.395615] (usv_sensor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/share/usv_sensor_bridge/config\n'}
+[3.396288] (usv_sensor_bridge) StdoutLine: {'line': b'copying config/sensors.yaml -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/share/usv_sensor_bridge/config\n'}
+[3.396906] (usv_sensor_bridge) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.397492] (usv_motor_bridge) StdoutLine: {'line': b"writing manifest file '../../build/usv_motor_bridge/usv_motor_bridge.egg-info/SOURCES.txt'\n"}
+[3.398113] (usv_motor_bridge) StdoutLine: {'line': b'running build\n'}
+[3.398900] (usv_motor_bridge) StdoutLine: {'line': b'running build_py\n'}
+[3.399578] (usv_motor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/build\n'}
+[3.400203] (usv_motor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/build/lib\n'}
+[3.400961] (usv_motor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/build/lib/usv_motor_bridge\n'}
+[3.401595] (usv_motor_bridge) StdoutLine: {'line': b'copying usv_motor_bridge/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/build/lib/usv_motor_bridge\n'}
+[3.402215] (usv_motor_bridge) StdoutLine: {'line': b'copying usv_motor_bridge/motor_bridge_node.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/build/lib/usv_motor_bridge\n'}
+[3.402913] (usv_motor_bridge) StdoutLine: {'line': b'running install\n'}
+[3.403626] (usv_motor_bridge) StdoutLine: {'line': b'running install_lib\n'}
+[3.404384] (usv_motor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages/usv_motor_bridge\n'}
+[3.405031] (usv_motor_bridge) StdoutLine: {'line': b'copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/build/lib/usv_motor_bridge/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages/usv_motor_bridge\n'}
+[3.405568] (usv_motor_bridge) StdoutLine: {'line': b'copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/build/lib/usv_motor_bridge/motor_bridge_node.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages/usv_motor_bridge\n'}
+[3.406088] (usv_motor_bridge) StdoutLine: {'line': b'byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages/usv_motor_bridge/__init__.py to __init__.cpython-310.pyc\n'}
+[3.406609] (usv_motor_bridge) StdoutLine: {'line': b'byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages/usv_motor_bridge/motor_bridge_node.py to motor_bridge_node.cpython-310.pyc\n'}
+[3.407198] (usv_motor_bridge) StdoutLine: {'line': b'running install_data\n'}
+[3.407805] (usv_motor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/share/ament_index\n'}
+[3.408432] (usv_sensor_bridge) StdoutLine: {'line': b'Copying ../../build/usv_sensor_bridge/usv_sensor_bridge.egg-info to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/python3.10/site-packages/usv_sensor_bridge-0.0.1-py3.10.egg-info\n'}
+[3.409082] (usv_motor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/share/ament_index/resource_index\n'}
+[3.409715] (usv_motor_bridge) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/share/ament_index/resource_index/packages\n'}
+[3.410314] (usv_motor_bridge) StdoutLine: {'line': b'copying resource/usv_motor_bridge -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/share/ament_index/resource_index/packages\n'}
+[3.410920] (usv_motor_bridge) StdoutLine: {'line': b'copying package.xml -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/share/usv_motor_bridge\n'}
+[3.411598] (usv_motor_bridge) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.412203] (usv_sensor_bridge) StdoutLine: {'line': b'running install_scripts\n'}
+[3.412765] (usv_motor_bridge) StdoutLine: {'line': b'Copying ../../build/usv_motor_bridge/usv_motor_bridge.egg-info to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/python3.10/site-packages/usv_motor_bridge-0.0.1-py3.10.egg-info\n'}
+[3.413414] (usv_motor_bridge) StdoutLine: {'line': b'running install_scripts\n'}
+[3.440827] (usv_sensor_bridge) StdoutLine: {'line': b'Installing sensor_bridge_node script to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_sensor_bridge/lib/usv_sensor_bridge\n'}
+[3.441836] (-) TimerEvent: {}
+[3.442692] (usv_sensor_bridge) StdoutLine: {'line': b"writing list of installed files to '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_sensor_bridge/install.log'\n"}
+[3.452597] (usv_motor_bridge) StdoutLine: {'line': b'Installing motor_bridge_node script to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_motor_bridge/lib/usv_motor_bridge\n'}
+[3.453775] (usv_motor_bridge) StdoutLine: {'line': b"writing list of installed files to '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_motor_bridge/install.log'\n"}
+[3.542338] (-) TimerEvent: {}
+[3.579788] (usv_sensor_bridge) CommandEnded: {'returncode': 0}
+[3.642944] (-) TimerEvent: {}
+[3.655631] (usv_sensor_bridge) JobEnded: {'identifier': 'usv_sensor_bridge', 'rc': 0}
+[3.662026] (usv_motor_bridge) CommandEnded: {'returncode': 0}
+[3.703128] (usv_motor_bridge) JobEnded: {'identifier': 'usv_motor_bridge', 'rc': 0}
+[3.743125] (-) TimerEvent: {}
+[3.814808] (usv_navigation) StdoutLine: {'line': b'running egg_info\n'}
+[3.817126] (usv_navigation) StdoutLine: {'line': b'creating ../../build/usv_navigation/usv_navigation.egg-info\n'}
+[3.818055] (usv_navigation) StdoutLine: {'line': b'writing ../../build/usv_navigation/usv_navigation.egg-info/PKG-INFO\n'}
+[3.819181] (usv_navigation) StdoutLine: {'line': b'writing dependency_links to ../../build/usv_navigation/usv_navigation.egg-info/dependency_links.txt\n'}
+[3.819844] (usv_navigation) StdoutLine: {'line': b'writing entry points to ../../build/usv_navigation/usv_navigation.egg-info/entry_points.txt\n'}
+[3.820390] (usv_navigation) StdoutLine: {'line': b'writing requirements to ../../build/usv_navigation/usv_navigation.egg-info/requires.txt\n'}
+[3.820884] (usv_navigation) StdoutLine: {'line': b'writing top-level names to ../../build/usv_navigation/usv_navigation.egg-info/top_level.txt\n'}
+[3.821360] (usv_navigation) StdoutLine: {'line': b"writing manifest file '../../build/usv_navigation/usv_navigation.egg-info/SOURCES.txt'\n"}
+[3.822901] (usv_navigation) StdoutLine: {'line': b"reading manifest file '../../build/usv_navigation/usv_navigation.egg-info/SOURCES.txt'\n"}
+[3.824531] (usv_navigation) StdoutLine: {'line': b"writing manifest file '../../build/usv_navigation/usv_navigation.egg-info/SOURCES.txt'\n"}
+[3.825617] (usv_navigation) StdoutLine: {'line': b'running build\n'}
+[3.826508] (usv_navigation) StdoutLine: {'line': b'running build_py\n'}
+[3.827097] (usv_navigation) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build\n'}
+[3.828029] (usv_navigation) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib\n'}
+[3.828568] (usv_navigation) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation\n'}
+[3.829121] (usv_navigation) StdoutLine: {'line': b'copying usv_navigation/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation\n'}
+[3.830218] (usv_navigation) StdoutLine: {'line': b'copying usv_navigation/navigation_node.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation\n'}
+[3.831318] (usv_navigation) StdoutLine: {'line': b'running install\n'}
+[3.832194] (usv_navigation) StdoutLine: {'line': b'running install_lib\n'}
+[3.832817] (usv_bringup) StdoutLine: {'line': b'running egg_info\n'}
+[3.833965] (usv_navigation) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation\n'}
+[3.834614] (usv_bringup) StdoutLine: {'line': b'creating ../../build/usv_bringup/usv_bringup.egg-info\n'}
+[3.835209] (usv_bringup) StdoutLine: {'line': b'writing ../../build/usv_bringup/usv_bringup.egg-info/PKG-INFO\n'}
+[3.835788] (usv_navigation) StdoutLine: {'line': b'copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation\n'}
+[3.836528] (usv_navigation) StdoutLine: {'line': b'copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/build/lib/usv_navigation/navigation_node.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation\n'}
+[3.837129] (usv_bringup) StdoutLine: {'line': b'writing dependency_links to ../../build/usv_bringup/usv_bringup.egg-info/dependency_links.txt\n'}
+[3.837979] (usv_bringup) StdoutLine: {'line': b'writing entry points to ../../build/usv_bringup/usv_bringup.egg-info/entry_points.txt\n'}
+[3.838928] (usv_bringup) StdoutLine: {'line': b'writing requirements to ../../build/usv_bringup/usv_bringup.egg-info/requires.txt\n'}
+[3.839748] (usv_bringup) StdoutLine: {'line': b'writing top-level names to ../../build/usv_bringup/usv_bringup.egg-info/top_level.txt\n'}
+[3.840482] (usv_bringup) StdoutLine: {'line': b"writing manifest file '../../build/usv_bringup/usv_bringup.egg-info/SOURCES.txt'\n"}
+[3.841053] (usv_navigation) StdoutLine: {'line': b'byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation/__init__.py to __init__.cpython-310.pyc\n'}
+[3.841588] (usv_navigation) StdoutLine: {'line': b'byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation/navigation_node.py to navigation_node.cpython-310.pyc\n'}
+[3.842106] (usv_navigation) StdoutLine: {'line': b'running install_data\n'}
+[3.842821] (usv_navigation) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/ament_index\n'}
+[3.843540] (-) TimerEvent: {}
+[3.844241] (usv_navigation) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/ament_index/resource_index\n'}
+[3.845543] (usv_navigation) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/ament_index/resource_index/packages\n'}
+[3.846399] (usv_navigation) StdoutLine: {'line': b'copying resource/usv_navigation -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/ament_index/resource_index/packages\n'}
+[3.847027] (usv_navigation) StdoutLine: {'line': b'copying package.xml -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/share/usv_navigation\n'}
+[3.847683] (usv_navigation) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.848252] (usv_bringup) StdoutLine: {'line': b"reading manifest file '../../build/usv_bringup/usv_bringup.egg-info/SOURCES.txt'\n"}
+[3.848830] (usv_bringup) StdoutLine: {'line': b"writing manifest file '../../build/usv_bringup/usv_bringup.egg-info/SOURCES.txt'\n"}
+[3.849398] (usv_bringup) StdoutLine: {'line': b'running build\n'}
+[3.849963] (usv_bringup) StdoutLine: {'line': b'running build_py\n'}
+[3.850521] (usv_bringup) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build\n'}
+[3.851070] (usv_bringup) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build/lib\n'}
+[3.851743] (usv_bringup) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build/lib/usv_bringup\n'}
+[3.852337] (usv_bringup) StdoutLine: {'line': b'copying usv_bringup/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build/lib/usv_bringup\n'}
+[3.852888] (usv_bringup) StdoutLine: {'line': b'running install\n'}
+[3.853393] (usv_bringup) StdoutLine: {'line': b'running install_lib\n'}
+[3.853843] (usv_bringup) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages/usv_bringup\n'}
+[3.854275] (usv_bringup) StdoutLine: {'line': b'copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build/lib/usv_bringup/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages/usv_bringup\n'}
+[3.854710] (usv_navigation) StdoutLine: {'line': b'Copying ../../build/usv_navigation/usv_navigation.egg-info to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/python3.10/site-packages/usv_navigation-0.0.1-py3.10.egg-info\n'}
+[3.855319] (usv_bringup) StdoutLine: {'line': b'byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages/usv_bringup/__init__.py to __init__.cpython-310.pyc\n'}
+[3.856116] (usv_bringup) StdoutLine: {'line': b'running install_data\n'}
+[3.856654] (usv_navigation) StdoutLine: {'line': b'running install_scripts\n'}
+[3.857312] (usv_bringup) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/ament_index\n'}
+[3.857844] (usv_bringup) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/ament_index/resource_index\n'}
+[3.858870] (usv_bringup) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/ament_index/resource_index/packages\n'}
+[3.859556] (usv_bringup) StdoutLine: {'line': b'copying resource/usv_bringup -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/ament_index/resource_index/packages\n'}
+[3.860153] (usv_bringup) StdoutLine: {'line': b'copying package.xml -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/usv_bringup\n'}
+[3.860683] (usv_bringup) StdoutLine: {'line': b'creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/usv_bringup/launch\n'}
+[3.861174] (usv_bringup) StdoutLine: {'line': b'copying launch/robot.launch.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/usv_bringup/launch\n'}
+[3.861646] (usv_bringup) StdoutLine: {'line': b'running install_egg_info\n'}
+[3.862102] (usv_bringup) StdoutLine: {'line': b'Copying ../../build/usv_bringup/usv_bringup.egg-info to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages/usv_bringup-0.0.1-py3.10.egg-info\n'}
+[3.862584] (usv_bringup) StdoutLine: {'line': b'running install_scripts\n'}
+[3.892793] (usv_navigation) StdoutLine: {'line': b'Installing navigation_node script to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_navigation/lib/usv_navigation\n'}
+[3.893801] (usv_navigation) StdoutLine: {'line': b"writing list of installed files to '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_navigation/install.log'\n"}
+[3.907097] (usv_bringup) StdoutLine: {'line': b"writing list of installed files to '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/install.log'\n"}
+[3.944043] (-) TimerEvent: {}
+[4.018088] (usv_navigation) CommandEnded: {'returncode': 0}
+[4.033283] (usv_navigation) JobEnded: {'identifier': 'usv_navigation', 'rc': 0}
+[4.037560] (usv_bringup) CommandEnded: {'returncode': 0}
+[4.044179] (-) TimerEvent: {}
+[4.051084] (usv_bringup) JobEnded: {'identifier': 'usv_bringup', 'rc': 0}
+[4.053822] (-) EventReactorShutdown: {}

@@ -21,7 +21,7 @@ setup(
     license="MIT",
     entry_points={
         "console_scripts": [
-                    "fake_sensor_node = usv_sensor_bridge.fake_sensor_node:main",
+                    "sensor_bridge_node = usv_sensor_bridge.sensor_bridge_node:main",
 
         ],
     },

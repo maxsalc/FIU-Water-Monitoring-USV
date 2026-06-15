@@ -1,0 +1,23 @@
+usv_sensor_bridge:
+  ros__parameters:
+    use_placeholder_values: true
+
+    gps_serial_port: "/dev/ttyUSB0"
+    gps_baud_rate: 9600
+
+    imu_i2c_bus: 1
+    imu_i2c_address: "0x28"
+
+    water_temperature_pin: "TODO"
+    ph_adc_channel: "TODO"
+    turbidity_adc_channel: "TODO"
+    tds_adc_channel: "TODO"
+
+    placeholder_latitude: 25.7560
+    placeholder_longitude: -80.3750
+    placeholder_heading_deg: 90.0
+    placeholder_temperature_c: 27.4
+    placeholder_ph: 7.1
+    placeholder_turbidity: 320.0
+    placeholder_tds: 510.0
+    placeholder_battery_voltage: 11.8

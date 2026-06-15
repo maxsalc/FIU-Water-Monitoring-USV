@@ -1,0 +1,16 @@
+<package format="3">
+  <name>usv_navigation</name>
+  <version>0.0.1</version>
+  <description>Navigation logic for the USV.</description>
+  <maintainer email="todo@example.com">USV Team</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

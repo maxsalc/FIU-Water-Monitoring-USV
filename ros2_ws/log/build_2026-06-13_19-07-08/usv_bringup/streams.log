@@ -1,0 +1,35 @@
+[3.121s] Invoking command in '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src/usv_bringup': PYTHONPATH=/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/usv_bringup build --build-base /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build install --record /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/install.log --single-version-externally-managed install_data
+[3.832s] running egg_info
+[3.833s] creating ../../build/usv_bringup/usv_bringup.egg-info
+[3.834s] writing ../../build/usv_bringup/usv_bringup.egg-info/PKG-INFO
+[3.836s] writing dependency_links to ../../build/usv_bringup/usv_bringup.egg-info/dependency_links.txt
+[3.837s] writing entry points to ../../build/usv_bringup/usv_bringup.egg-info/entry_points.txt
+[3.837s] writing requirements to ../../build/usv_bringup/usv_bringup.egg-info/requires.txt
+[3.838s] writing top-level names to ../../build/usv_bringup/usv_bringup.egg-info/top_level.txt
+[3.839s] writing manifest file '../../build/usv_bringup/usv_bringup.egg-info/SOURCES.txt'
+[3.847s] reading manifest file '../../build/usv_bringup/usv_bringup.egg-info/SOURCES.txt'
+[3.847s] writing manifest file '../../build/usv_bringup/usv_bringup.egg-info/SOURCES.txt'
+[3.848s] running build
+[3.848s] running build_py
+[3.849s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build
+[3.849s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build/lib
+[3.850s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build/lib/usv_bringup
+[3.851s] copying usv_bringup/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build/lib/usv_bringup
+[3.851s] running install
+[3.852s] running install_lib
+[3.852s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages/usv_bringup
+[3.853s] copying /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build/lib/usv_bringup/__init__.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages/usv_bringup
+[3.854s] byte-compiling /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages/usv_bringup/__init__.py to __init__.cpython-310.pyc
+[3.854s] running install_data
+[3.856s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/ament_index
+[3.857s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/ament_index/resource_index
+[3.857s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/ament_index/resource_index/packages
+[3.858s] copying resource/usv_bringup -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/ament_index/resource_index/packages
+[3.858s] copying package.xml -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/usv_bringup
+[3.859s] creating /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/usv_bringup/launch
+[3.859s] copying launch/robot.launch.py -> /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/share/usv_bringup/launch
+[3.860s] running install_egg_info
+[3.860s] Copying ../../build/usv_bringup/usv_bringup.egg-info to /workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages/usv_bringup-0.0.1-py3.10.egg-info
+[3.861s] running install_scripts
+[3.906s] writing list of installed files to '/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/install.log'
+[4.036s] Invoked command in '/workspace/FIU-Water-Monitoring-USV/ros2_ws/src/usv_bringup' returned '0': PYTHONPATH=/workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/FIU-Water-Monitoring-USV/ros2_ws/install/usv_bringup/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/usv_bringup build --build-base /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/build install --record /workspace/FIU-Water-Monitoring-USV/ros2_ws/build/usv_bringup/install.log --single-version-externally-managed install_data
