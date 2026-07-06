@@ -4,7 +4,8 @@ import sys
 
 ESP32_PORT = '/dev/ttyUSB0'
 RADIO_PORT = '/dev/ttyS2'
-BAUD_RATE = 115200
+ESP32_BAUD = 115200
+RADIO_BAUD = 9600
 
 def get_temp_from_esp32(esp32_serial):
     try:
@@ -32,20 +33,20 @@ def main():
     print("Starting Orange Pi Demo Controller...")
     
     try:
-        esp32 = serial.Serial(ESP32_PORT, BAUD_RATE, timeout=1)
-        print(f"Connected to ESP32 on {ESP32_PORT}")
+        esp32 = serial.Serial(ESP32_PORT, ESP32_BAUD, timeout=1)
+        print(f"Connected to ESP32 on {ESP32_PORT}", flush=True)
     except Exception as e:
         print(f"Failed to connect to ESP32: {e}")
         return
 
     try:
-        radio = serial.Serial(RADIO_PORT, BAUD_RATE, timeout=1)
-        print(f"Connected to Radio on {RADIO_PORT}")
+        radio = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=1)
+        print(f"Connected to Radio on {RADIO_PORT}", flush=True)
     except Exception as e:
         print(f"Failed to connect to Radio: {e}")
         return
 
-    print("\nWaiting for 'START' command from Laptop via Radio...")
+    print("\nWaiting for 'START' command from Laptop via Radio...", flush=True)
     while True:
         if radio.in_waiting > 0:
             msg = radio.readline().decode('utf-8').strip()
