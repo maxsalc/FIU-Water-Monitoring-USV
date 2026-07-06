@@ -46,14 +46,17 @@ def main():
         print(f"Failed to connect to Radio: {e}")
         return
 
-    print("\nWaiting for 'START' command from Laptop via Radio...", flush=True)
-    while True:
-        if radio.in_waiting > 0:
-            msg = radio.readline().decode('utf-8').strip()
-            if msg == "START":
-                print("Start command received! Beginning 40-second demonstration.")
-                break
-        time.sleep(0.1)
+    print("\nWaiting for 'START' command from Laptop via Radio... (Press Ctrl+C on this keyboard to bypass and force start)", flush=True)
+    try:
+        while True:
+            if radio.in_waiting > 0:
+                msg = radio.readline().decode('utf-8', errors='ignore').strip()
+                if msg == "START":
+                    print("Start command received! Beginning 40-second demonstration.", flush=True)
+                    break
+            time.sleep(0.1)
+    except KeyboardInterrupt:
+        print("\n\n[KEYBOARD OVERRIDE] Radio bypassed. Forcing the demonstration to start right now!", flush=True)
 
     print("Moving Forward...")
     esp32.write(b"FWD\n")
