@@ -3,7 +3,7 @@ import time
 import sys
 
 # CHANGE THIS TO YOUR LAPTOP'S RADIO COM PORT (e.g., 'COM3' on Windows or '/dev/ttyUSB0' on Mac/Linux)
-LAPTOP_RADIO_PORT = 'COM3' 
+LAPTOP_RADIO_PORT = 'COM4' 
 BAUD_RATE = 115200
 
 def main():
