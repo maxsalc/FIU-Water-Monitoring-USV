@@ -1,54 +1,54 @@
 import serial
 import time
-import sys
-
-# Try to import Orange Pi GPIO
-try:
-    import OPi.GPIO as GPIO
-except ImportError:
-    print("CRITICAL ERROR: OPi.GPIO library is missing!")
-    print("Please run: sudo pip3 install OPi.GPIO")
-    sys.exit(1)
+import os
 
 RADIO_PORT = '/dev/ttyS7'
 RADIO_BAUD = 9600
 
-# We will use the Physical Pin numbers on the 40-pin header
-# Wire the L298N IN1-IN4 to these physical pins:
-IN1 = 11
-IN2 = 13
-IN3 = 15
-IN4 = 16
+# We will use the 'wPi' pin numbers mapped to Physical Pins 11, 13, 15, 16
+# based on the Orange Pi 4 Pro 'gpio readall' table:
+IN1 = 5  # Physical Pin 11
+IN2 = 7  # Physical Pin 13
+IN3 = 8  # Physical Pin 15
+IN4 = 9  # Physical Pin 16
 
 def stop_motors():
-    GPIO.output(IN1, GPIO.LOW)
-    GPIO.output(IN2, GPIO.LOW)
-    GPIO.output(IN3, GPIO.LOW)
-    GPIO.output(IN4, GPIO.LOW)
+    os.system(f"gpio write {IN1} 0")
+    os.system(f"gpio write {IN2} 0")
+    os.system(f"gpio write {IN3} 0")
+    os.system(f"gpio write {IN4} 0")
 
 def move_forward():
-    GPIO.output(IN1, GPIO.HIGH)
-    GPIO.output(IN2, GPIO.LOW)
-    GPIO.output(IN3, GPIO.HIGH)
-    GPIO.output(IN4, GPIO.LOW)
+    os.system(f"gpio write {IN1} 1")
+    os.system(f"gpio write {IN2} 0")
+    os.system(f"gpio write {IN3} 1")
+    os.system(f"gpio write {IN4} 0")
 
 def move_backward():
-    GPIO.output(IN1, GPIO.LOW)
-    GPIO.output(IN2, GPIO.HIGH)
-    GPIO.output(IN3, GPIO.LOW)
-    GPIO.output(IN4, GPIO.HIGH)
+    os.system(f"gpio write {IN1} 0")
+    os.system(f"gpio write {IN2} 1")
+    os.system(f"gpio write {IN3} 0")
+    os.system(f"gpio write {IN4} 1")
 
 def turn_left():
-    GPIO.output(IN1, GPIO.LOW)
-    GPIO.output(IN2, GPIO.HIGH)
-    GPIO.output(IN3, GPIO.HIGH)
-    GPIO.output(IN4, GPIO.LOW)
+    os.system(f"gpio write {IN1} 0")
+    os.system(f"gpio write {IN2} 1")
+    os.system(f"gpio write {IN3} 1")
+    os.system(f"gpio write {IN4} 0")
 
 def turn_right():
-    GPIO.output(IN1, GPIO.HIGH)
-    GPIO.output(IN2, GPIO.LOW)
-    GPIO.output(IN3, GPIO.LOW)
-    GPIO.output(IN4, GPIO.HIGH)
+    os.system(f"gpio write {IN1} 1")
+    os.system(f"gpio write {IN2} 0")
+    os.system(f"gpio write {IN3} 0")
+    os.system(f"gpio write {IN4} 1")
+
+def setup_gpio():
+    print("Setting up GPIO pins using WiringOP...")
+    os.system(f"gpio mode {IN1} out")
+    os.system(f"gpio mode {IN2} out")
+    os.system(f"gpio mode {IN3} out")
+    os.system(f"gpio mode {IN4} out")
+    stop_motors()
 
 def main():
     print("===========================================")
@@ -62,14 +62,7 @@ def main():
         print(f"Failed to connect to Radio: {e}")
         return
 
-    # Setup GPIO
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(IN1, GPIO.OUT)
-    GPIO.setup(IN2, GPIO.OUT)
-    GPIO.setup(IN3, GPIO.OUT)
-    GPIO.setup(IN4, GPIO.OUT)
-    
-    stop_motors()
+    setup_gpio()
     
     print("\n[SUCCESS] Hardware initialized. Listening for radio commands...")
 
@@ -99,7 +92,6 @@ def main():
         print("\nExiting...")
     finally:
         stop_motors()
-        GPIO.cleanup()
 
 if __name__ == '__main__':
     main()
