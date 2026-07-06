@@ -2,46 +2,59 @@ import serial
 import time
 import sys
 
-RADIO_PORT = '/dev/ttyS7'     # UART7 on Orange Pi 4 Pro
+# Try to import Orange Pi GPIO
+try:
+    import OPi.GPIO as GPIO
+except ImportError:
+    print("CRITICAL ERROR: OPi.GPIO library is missing!")
+    print("Please run: sudo pip3 install OPi.GPIO")
+    sys.exit(1)
+
+RADIO_PORT = '/dev/ttyS7'
 RADIO_BAUD = 9600
 
-ESP32_PORT = '/dev/ttyUSB0'   # USB connection to ESP32
-ESP32_BAUD = 115200
+# We will use the Physical Pin numbers on the 40-pin header
+# Wire the L298N IN1-IN4 to these physical pins:
+IN1 = 11
+IN2 = 13
+IN3 = 15
+IN4 = 16
 
-def get_temp_from_esp32(esp32_serial):
-    try:
-        esp32_serial.reset_input_buffer()
-        esp32_serial.write(b"TEMP\n")
-        
-        timeout = time.time() + 3
-        while time.time() < timeout:
-            if esp32_serial.in_waiting > 0:
-                resp = esp32_serial.readline().decode('utf-8', errors='ignore').strip()
-                if resp and "ACK" not in resp and "ESP32" not in resp:
-                    try:
-                        return float(resp)
-                    except ValueError:
-                        pass
-        return -999.0
-    except Exception as e:
-        print(f"Error reading temp from ESP32: {e}")
-        return -999.0
+def stop_motors():
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.LOW)
+
+def move_forward():
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.HIGH)
+    GPIO.output(IN4, GPIO.LOW)
+
+def move_backward():
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
+
+def turn_left():
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
+    GPIO.output(IN3, GPIO.HIGH)
+    GPIO.output(IN4, GPIO.LOW)
+
+def turn_right():
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
 
 def main():
-    print("Starting Orange Pi Demo Controller...")
+    print("===========================================")
+    print("      ASV ORANGE PI MOTOR CONTROLLER")
+    print("===========================================")
     
-    try:
-        esp32 = serial.Serial(ESP32_PORT, ESP32_BAUD, timeout=1)
-        esp32.setDTR(False)
-        esp32.setRTS(False)
-        print(f"Connected to ESP32 on {ESP32_PORT}... Waiting for bootup.")
-        time.sleep(2.5) 
-        esp32.reset_input_buffer()
-        print("ESP32 Ready!")
-    except Exception as e:
-        print(f"Failed to connect to ESP32: {e}")
-        return
-
     try:
         radio = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=1)
         print(f"Connected to Radio on {RADIO_PORT}")
@@ -49,45 +62,44 @@ def main():
         print(f"Failed to connect to Radio: {e}")
         return
 
-    print("\nWaiting for 'START' command from Laptop via Radio...")
+    # Setup GPIO
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(IN1, GPIO.OUT)
+    GPIO.setup(IN2, GPIO.OUT)
+    GPIO.setup(IN3, GPIO.OUT)
+    GPIO.setup(IN4, GPIO.OUT)
     
-    # Block until START is received
-    while True:
-        if radio.in_waiting > 0:
-            msg = radio.readline().decode('utf-8', errors='ignore').strip()
-            if "START" in msg:
-                print("Received START command! Beginning Demonstration.")
-                break
-        time.sleep(0.1)
-
-    # --- THE DEMONSTRATION LOGIC ---
+    stop_motors()
     
-    print("\n>>> MOVING FORWARD (10 seconds)")
-    esp32.write(b"FWD\n")
-    time.sleep(10)
+    print("\n[SUCCESS] Hardware initialized. Listening for radio commands...")
 
-    print(">>> STOPPING to sample Cold Water...")
-    esp32.write(b"STOP\n")
-    time.sleep(2) 
-    
-    temp_c = get_temp_from_esp32(esp32)
-    print(f"    [SENSOR DATA] Cold Water Temp: {temp_c} C")
-    radio.write(f"TEMP:{temp_c}\n".encode('utf-8'))
-    time.sleep(3)
-
-    print("\n>>> MOVING FORWARD to Hot Bowl (10 seconds)")
-    esp32.write(b"FWD\n")
-    time.sleep(10)
-
-    print(">>> STOPPING to sample Hot Water...")
-    esp32.write(b"STOP\n")
-    time.sleep(2)
-    
-    temp_c = get_temp_from_esp32(esp32)
-    print(f"    [SENSOR DATA] Hot Water Temp: {temp_c} C")
-    radio.write(f"TEMP:{temp_c}\n".encode('utf-8'))
-
-    print("\nDemonstration Complete! Waiting for next command...")
+    try:
+        while True:
+            if radio.in_waiting > 0:
+                msg = radio.readline().decode('utf-8', errors='ignore').strip()
+                
+                if "FWD" in msg:
+                    print("Executing: FORWARD")
+                    move_forward()
+                elif "BWD" in msg:
+                    print("Executing: BACKWARD")
+                    move_backward()
+                elif "LEFT" in msg:
+                    print("Executing: TURN LEFT")
+                    turn_left()
+                elif "RIGHT" in msg:
+                    print("Executing: TURN RIGHT")
+                    turn_right()
+                elif "STOP" in msg:
+                    print("Executing: STOP")
+                    stop_motors()
+                    
+            time.sleep(0.01)
+    except KeyboardInterrupt:
+        print("\nExiting...")
+    finally:
+        stop_motors()
+        GPIO.cleanup()
 
 if __name__ == '__main__':
     main()
