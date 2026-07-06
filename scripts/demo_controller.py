@@ -5,7 +5,7 @@ import os
 
 # Configuration (Adjust these ports if needed)
 ESP32_PORT = '/dev/ttyUSB0'   # Usually ttyUSB0 or ttyACM0 when plugged via USB
-RADIO_PORT = '/dev/ttyS3'     # UART3 on Orange Pi
+RADIO_PORT = '/dev/ttyS2'     # UART2 on Orange Pi 4 Pro
 BAUD_RATE = 115200
 
 def get_temp_sensor_file():
