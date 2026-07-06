@@ -31,8 +31,13 @@ def main():
     
     try:
         esp32 = serial.Serial(ESP32_PORT, ESP32_BAUD, timeout=1)
+        # CRITICAL FIX for Linux/Orange Pi: PySerial automatically asserts DTR/RTS 
+        # which forces the ESP32 into bootloader mode (solid blue light). 
+        # We must disable them immediately so it boots normally!
+        esp32.setDTR(False)
+        esp32.setRTS(False)
+        
         print(f"Connected to ESP32 on {ESP32_PORT}... Waiting for bootup.")
-        # CRITICAL FIX: When Python opens a Serial port, the ESP32 reboots. 
         # We MUST wait 2 seconds for it to finish booting before sending commands!
         time.sleep(2.5) 
         esp32.reset_input_buffer()
