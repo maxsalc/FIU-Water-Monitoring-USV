@@ -1,7 +1,7 @@
 import serial
 import time
 
-PORT = '/dev/ttyS2' 
+PORT = '/dev/ttyS7' 
 BAUD = 9600
 
 def main():
