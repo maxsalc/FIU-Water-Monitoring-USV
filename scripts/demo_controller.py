@@ -3,23 +3,18 @@ import time
 import sys
 
 ESP32_PORT = '/dev/ttyUSB0'
-RADIO_PORT = '/dev/ttyS2'
 ESP32_BAUD = 115200
-RADIO_BAUD = 9600
 
 def get_temp_from_esp32(esp32_serial):
     try:
-        # Flush input buffer to clear old ACKs
         esp32_serial.reset_input_buffer()
-        # Request temperature
         esp32_serial.write(b"TEMP\n")
         
-        # Wait up to 2 seconds for the ESP32 to respond (reading 1-wire takes ~750ms)
-        timeout = time.time() + 2
+        timeout = time.time() + 3
         while time.time() < timeout:
             if esp32_serial.in_waiting > 0:
-                resp = esp32_serial.readline().decode('utf-8').strip()
-                if "ACK" not in resp: # Ignore stray motor ACKs
+                resp = esp32_serial.readline().decode('utf-8', errors='ignore').strip()
+                if resp and "ACK" not in resp and "ESP32" not in resp:
                     try:
                         return float(resp)
                     except ValueError:
@@ -30,61 +25,51 @@ def get_temp_from_esp32(esp32_serial):
     return -999.0
 
 def main():
-    print("Starting Orange Pi Demo Controller...")
+    print("====================================")
+    print("   ASV LOCAL DEMONSTRATION MODE")
+    print("====================================")
     
     try:
         esp32 = serial.Serial(ESP32_PORT, ESP32_BAUD, timeout=1)
-        print(f"Connected to ESP32 on {ESP32_PORT}", flush=True)
+        print(f"Connected to ESP32 on {ESP32_PORT}... Waiting for bootup.")
+        # CRITICAL FIX: When Python opens a Serial port, the ESP32 reboots. 
+        # We MUST wait 2 seconds for it to finish booting before sending commands!
+        time.sleep(2.5) 
+        esp32.reset_input_buffer()
+        print("ESP32 Ready!")
     except Exception as e:
         print(f"Failed to connect to ESP32: {e}")
         return
 
-    try:
-        radio = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=1)
-        print(f"Connected to Radio on {RADIO_PORT}", flush=True)
-    except Exception as e:
-        print(f"Failed to connect to Radio: {e}")
-        return
-
-    print("\nWaiting for 'START' command from Laptop via Radio... (Press Ctrl+C on this keyboard to bypass and force start)", flush=True)
-    try:
-        while True:
-            if radio.in_waiting > 0:
-                msg = radio.readline().decode('utf-8', errors='ignore').strip()
-                if msg == "START":
-                    print("Start command received! Beginning 40-second demonstration.", flush=True)
-                    break
-            time.sleep(0.1)
-    except KeyboardInterrupt:
-        print("\n\n[KEYBOARD OVERRIDE] Radio bypassed. Forcing the demonstration to start right now!", flush=True)
-
-    print("Moving Forward...")
+    print("\nPress ENTER on your Orange Pi keyboard to START the demo...")
+    input()
+    
+    print("\n>>> MOVING FORWARD (10 seconds)")
     esp32.write(b"FWD\n")
     time.sleep(10)
 
-    print("Stopping to sample Cold Water...")
+    print(">>> STOPPING to sample Cold Water...")
     esp32.write(b"STOP\n")
     time.sleep(2) 
     
     temp_c = get_temp_from_esp32(esp32)
-    print(f"Cold Temp read: {temp_c} C")
-    radio.write(f"COLD_TEMP: {temp_c:.2f} C\n".encode('utf-8'))
+    print(f"    [SENSOR DATA] Cold Water Temp: {temp_c} C")
     time.sleep(3)
 
-    print("Moving Forward to Hot Bowl...")
+    print("\n>>> MOVING FORWARD to Hot Bowl (10 seconds)")
     esp32.write(b"FWD\n")
     time.sleep(10)
 
-    print("Stopping to sample Hot Water...")
+    print(">>> STOPPING to sample Hot Water...")
     esp32.write(b"STOP\n")
     time.sleep(2)
     
     temp_c = get_temp_from_esp32(esp32)
-    print(f"Hot Temp read: {temp_c} C")
-    radio.write(f"HOT_TEMP: {temp_c:.2f} C\n".encode('utf-8'))
-    time.sleep(3)
+    print(f"    [SENSOR DATA] Hot Water Temp: {temp_c} C")
 
-    print("Demonstration Complete!")
+    print("\n====================================")
+    print("       Demonstration Complete!")
+    print("====================================")
 
 if __name__ == '__main__':
     main()
