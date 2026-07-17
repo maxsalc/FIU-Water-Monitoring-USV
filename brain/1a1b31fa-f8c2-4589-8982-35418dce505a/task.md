@@ -1,8 +1,7 @@
-# Task: Sensor Calibration and Firmware Update
+# Task: Implement Non-Blocking Serial Readers
 
-- [/] Update `firmware/src/main.cpp` with ADC analogRead logic
-- [/] Implement DFRobot TDS V1.0 equation (with temperature compensation)
-- [/] Implement DFRobot Turbidity V1.0 equation
-- [/] Implement pH Sensor V2.0 equation
-- [ ] Push changes to GitHub
-- [ ] Provide user with the voltage warning instructions
+- [/] Design a custom `NonBlockingSerial` class to prevent any blocking in Python loops
+- [ ] Update `scripts/laptop_remote.py` to use non-blocking reader
+- [ ] Update `scripts/orange_pi_bridge.py` to use non-blocking reader
+- [ ] Commit and Push changes
+- [ ] Instruct user to run final test

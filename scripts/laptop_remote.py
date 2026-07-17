@@ -95,12 +95,7 @@ def main():
                 # Delay the next automatic status query slightly to keep the link clear
                 last_query_time = time.time() - (STATUS_QUERY_INTERVAL - 0.5)
                 
-        # 3. PERIODIC TELEMETRY QUERY
-        current_time = time.time()
-        if current_time - last_query_time >= STATUS_QUERY_INTERVAL:
-            radio_ser.write(b"STATUS\n")
-            last_query_time = current_time
-            
+        # 3. NO MORE POLLING - Just listen passively for telemetry
         time.sleep(0.005) # Run loop extremely fast
 
     radio_ser.close()

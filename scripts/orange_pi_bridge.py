@@ -66,19 +66,15 @@ def main():
 
     latest_telemetry = ""
 
+    last_broadcast_time = time.time()
+
     try:
         while True:
             # A. DOWNSTREAM: Radio (Laptop) ➔ ESP32 / Command Parser
             radio_cmd = radio.readline()
             if radio_cmd:
-                # If laptop is requesting telemetry
-                if radio_cmd == "STATUS":
-                    if latest_telemetry:
-                        radio_ser.write(f"{latest_telemetry}\n".encode('utf-8'))
-                        print(f"[RADIO] Sent Telemetry Response")
-                
                 # If laptop is sending a motor command
-                else:
+                if radio_cmd != "STATUS":
                     print(f"[RADIO RECV] Command: {radio_cmd}")
                     esp_cmd = ""
                     if radio_cmd == "FWD":
@@ -106,6 +102,14 @@ def main():
                 else:
                     # Print generic debug logs locally
                     print(f"[ESP32 Debug] {esp_line}")
+
+            # C. BROADCAST TELEMETRY AUTOMATICALLY (Every 2 seconds)
+            current_time = time.time()
+            if current_time - last_broadcast_time >= 2.0:
+                if latest_telemetry:
+                    radio_ser.write(f"{latest_telemetry}\n".encode('utf-8'))
+                    print(f"[RADIO] Auto-Broadcasted Telemetry")
+                last_broadcast_time = current_time
 
             time.sleep(0.005) # Run the loop extremely fast (200Hz)
 
