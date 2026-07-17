@@ -7,6 +7,28 @@ RADIO_PORT = 'COM6'
 RADIO_BAUD = 9600
 STATUS_QUERY_INTERVAL = 2.0  # Request telemetry every 2 seconds
 
+class NonBlockingSerialReader:
+    def __init__(self, ser_port):
+        self.ser = ser_port
+        self.buffer = ""
+
+    def readline(self):
+        if '\n' in self.buffer:
+            parts = self.buffer.split('\n', 1)
+            line = parts[0].strip()
+            self.buffer = parts[1]
+            return line
+
+        if self.ser.in_waiting > 0:
+            raw = self.ser.read(self.ser.in_waiting).decode('utf-8', errors='ignore')
+            self.buffer += raw
+            if '\n' in self.buffer:
+                parts = self.buffer.split('\n', 1)
+                line = parts[0].strip()
+                self.buffer = parts[1]
+                return line
+        return None
+
 def main():
     print("===========================================")
     print("      ASV GROUND STATION CONTROLLER")
@@ -14,7 +36,8 @@ def main():
     print("Connecting to Radio...")
     
     try:
-        radio = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=1.0)
+        radio_ser = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=0)
+        radio = NonBlockingSerialReader(radio_ser)
     except Exception as e:
         print(f"Failed to open {RADIO_PORT}: {e}")
         return
@@ -35,15 +58,12 @@ def main():
     last_query_time = 0
     
     while True:
-        # 1. READ Incoming Telemetry from Radio
-        if radio.in_waiting > 0:
-            try:
-                line = radio.readline().decode('utf-8', errors='ignore').strip()
-                if line and line.startswith("S:"):
-                    print(f"\r[TELEMETRY] {line}                   ")
-                    print("Send Command (W/A/S/D/SPACE): ", end="", flush=True)
-            except Exception as e:
-                pass
+        # 1. READ Incoming Telemetry from Radio (Non-blocking)
+        line = radio.readline()
+        if line:
+            if line.startswith("S:"):
+                print(f"\r[TELEMETRY] {line}                   ")
+                print("Send Command (W/A/S/D/SPACE): ", end="", flush=True)
 
         # 2. WRITE Outgoing Keyboard Commands to Radio
         if msvcrt.kbhit():
@@ -70,19 +90,20 @@ def main():
 
             if msg and msg != last_key:
                 print(f"\nBroadcasting Command: {msg}")
-                radio.write(f"{msg}\n".encode('utf-8'))
+                radio_ser.write(f"{msg}\n".encode('utf-8'))
                 last_key = msg
-                # Delay the next automatic telemetry query slightly to avoid collisions
+                # Delay the next automatic status query slightly to keep the link clear
                 last_query_time = time.time() - (STATUS_QUERY_INTERVAL - 0.5)
                 
-        # 3. PERIODIC TELEMETRY QUERY (Master requests, Slave responds)
+        # 3. PERIODIC TELEMETRY QUERY
         current_time = time.time()
         if current_time - last_query_time >= STATUS_QUERY_INTERVAL:
-            radio.write(b"STATUS\n")
+            radio_ser.write(b"STATUS\n")
             last_query_time = current_time
             
-        time.sleep(0.01)
+        time.sleep(0.005) # Run loop extremely fast
 
+    radio_ser.close()
     print("\nExiting Ground Station.")
 
 if __name__ == '__main__':

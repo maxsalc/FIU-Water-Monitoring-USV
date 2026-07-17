@@ -7,6 +7,30 @@ RADIO_BAUD = 9600
 ESP32_PORT = '/dev/ttyUSB0'
 ESP32_BAUD = 115200
 
+class NonBlockingSerialReader:
+    def __init__(self, ser_port):
+        self.ser = ser_port
+        self.buffer = ""
+
+    def readline(self):
+        # 1. Check if we already have a full line in our local buffer
+        if '\n' in self.buffer:
+            parts = self.buffer.split('\n', 1)
+            line = parts[0].strip()
+            self.buffer = parts[1]
+            return line
+
+        # 2. Read new bytes if they are waiting
+        if self.ser.in_waiting > 0:
+            raw = self.ser.read(self.ser.in_waiting).decode('utf-8', errors='ignore')
+            self.buffer += raw
+            if '\n' in self.buffer:
+                parts = self.buffer.split('\n', 1)
+                line = parts[0].strip()
+                self.buffer = parts[1]
+                return line
+        return None
+
 def main():
     print("====================================")
     print("    ORANGE PI TELEMETRY BRIDGE      ")
@@ -15,7 +39,9 @@ def main():
     # 1. Connect to Radio
     try:
         print(f"Connecting to Radio on {RADIO_PORT}...")
-        radio = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=1.0)
+        # Open with 0 timeout to make reads completely non-blocking
+        radio_ser = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=0)
+        radio = NonBlockingSerialReader(radio_ser)
         print("[SUCCESS] Connected to Radio.")
     except Exception as e:
         print(f"[ERROR] Failed to open Radio: {e}")
@@ -24,16 +50,18 @@ def main():
     # 2. Connect to ESP32
     try:
         print(f"Connecting to ESP32 on {ESP32_PORT}...")
-        esp32 = serial.Serial(ESP32_PORT, ESP32_BAUD, timeout=0.1)
-        esp32.setDTR(False)
-        esp32.setRTS(False)
+        esp32_ser = serial.Serial(ESP32_PORT, ESP32_BAUD, timeout=0)
+        esp32 = NonBlockingSerialReader(esp32_ser)
+        # Linux specific serial reset fixes for ESP32
+        esp32_ser.setDTR(False)
+        esp32_ser.setRTS(False)
         print("[SUCCESS] Connected to ESP32.")
     except Exception as e:
         print(f"[ERROR] Failed to open ESP32: {e}")
-        radio.close()
+        radio_ser.close()
         return
 
-    print("\n--- Wireless Bridge Active (Query-Response Mode) ---")
+    print("\n--- Wireless Bridge Active (Non-Blocking Mode) ---")
     print("Listening for Laptop commands and ESP32 telemetry...\n")
 
     latest_telemetry = ""
@@ -41,55 +69,51 @@ def main():
     try:
         while True:
             # A. DOWNSTREAM: Radio (Laptop) ➔ ESP32 / Command Parser
-            if radio.in_waiting > 0:
-                radio_cmd = radio.readline().decode('utf-8', errors='ignore').strip()
-                if radio_cmd:
+            radio_cmd = radio.readline()
+            if radio_cmd:
+                # If laptop is requesting telemetry
+                if radio_cmd == "STATUS":
+                    if latest_telemetry:
+                        radio_ser.write(f"{latest_telemetry}\n".encode('utf-8'))
+                        print(f"[RADIO] Sent Telemetry Response")
+                
+                # If laptop is sending a motor command
+                else:
+                    print(f"[RADIO RECV] Command: {radio_cmd}")
+                    esp_cmd = ""
+                    if radio_cmd == "FWD":
+                        esp_cmd = "M:200,200\n"
+                    elif radio_cmd == "BWD":
+                        esp_cmd = "M:-200,-200\n"
+                    elif radio_cmd == "LEFT":
+                        esp_cmd = "M:-150,150\n"
+                    elif radio_cmd == "RIGHT":
+                        esp_cmd = "M:150,-150\n"
+                    elif radio_cmd == "STOP":
+                        esp_cmd = "M:0,0\n"
                     
-                    # If laptop is requesting telemetry
-                    if radio_cmd == "STATUS":
-                        if latest_telemetry:
-                            # Send the latest cached telemetry packet back to laptop
-                            radio.write(f"{latest_telemetry}\n".encode('utf-8'))
-                            print(f"[RADIO] Sent Telemetry Response")
-                    
-                    # If laptop is sending a motor command
-                    else:
-                        print(f"[RADIO RECV] Command: {radio_cmd}")
-                        esp_cmd = ""
-                        if radio_cmd == "FWD":
-                            esp_cmd = "M:200,200\n"
-                        elif radio_cmd == "BWD":
-                            esp_cmd = "M:-200,-200\n"
-                        elif radio_cmd == "LEFT":
-                            esp_cmd = "M:-150,150\n"
-                        elif radio_cmd == "RIGHT":
-                            esp_cmd = "M:150,-150\n"
-                        elif radio_cmd == "STOP":
-                            esp_cmd = "M:0,0\n"
-                        
-                        if esp_cmd:
-                            esp32.write(esp_cmd.encode('utf-8'))
-                            print(f"  └─► Forwarded to ESP32: {esp_cmd.strip()}")
+                    if esp_cmd:
+                        esp32_ser.write(esp_cmd.encode('utf-8'))
+                        print(f"  └─► Forwarded to ESP32: {esp_cmd.strip()}")
 
             # B. UPSTREAM: ESP32 ➔ Local Cache & Screen
-            if esp32.in_waiting > 0:
-                esp_line = esp32.readline().decode('utf-8', errors='ignore').strip()
-                if esp_line:
-                    if esp_line.startswith("S:"):
-                        # Cache the latest telemetry locally (do not send to radio yet)
-                        latest_telemetry = esp_line
-                        print(f"[LOCAL TELEMETRY] {esp_line}")
-                    else:
-                        # Print generic debug logs locally
-                        print(f"[ESP32 Debug] {esp_line}")
+            esp_line = esp32.readline()
+            if esp_line:
+                if esp_line.startswith("S:"):
+                    # Cache the latest telemetry locally
+                    latest_telemetry = esp_line
+                    print(f"[LOCAL TELEMETRY] {esp_line}")
+                else:
+                    # Print generic debug logs locally
+                    print(f"[ESP32 Debug] {esp_line}")
 
-            time.sleep(0.01)
+            time.sleep(0.005) # Run the loop extremely fast (200Hz)
 
     except KeyboardInterrupt:
         print("\nStopping Wireless Bridge...")
     finally:
-        radio.close()
-        esp32.close()
+        radio_ser.close()
+        esp32_ser.close()
         print("Serial ports closed.")
 
 if __name__ == '__main__':
