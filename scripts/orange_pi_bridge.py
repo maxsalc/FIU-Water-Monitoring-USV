@@ -69,8 +69,8 @@ def main():
                     # If it's a telemetry packet
                     if esp_line.startswith("S:"):
                         print(f"[TELEMETRY] {esp_line}")
-                        # Forward telemetry back to ground station over the radio
-                        radio.write(f"{esp_line}\n".encode('utf-8'))
+                        # Temporarily disabled radio transmission to prevent half-duplex RF collision
+                        # radio.write(f"{esp_line}\n".encode('utf-8'))
                     else:
                         # Print generic debug logs locally
                         print(f"[ESP32 Debug] {esp_line}")
