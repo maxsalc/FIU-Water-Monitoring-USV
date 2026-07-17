@@ -15,7 +15,7 @@ def main():
     # 1. Connect to Radio
     try:
         print(f"Connecting to Radio on {RADIO_PORT}...")
-        radio = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=0.1)
+        radio = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=1.0)
         print("[SUCCESS] Connected to Radio.")
     except Exception as e:
         print(f"[ERROR] Failed to open Radio: {e}")
