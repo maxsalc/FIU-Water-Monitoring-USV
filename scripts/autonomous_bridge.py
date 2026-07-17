@@ -17,7 +17,7 @@ def robust_write(ser, text):
     for char in text:
         ser.write(char.encode('utf-8'))
         ser.flush()
-        time.sleep(0.002) # 2ms delay resets the UART start/stop bit framing
+        time.sleep(0.02) # 20ms delay ensures we do not overrun the LoRa module's slow air data rate
 
 def run_mission(esp32_ser, radio_ser):
     global mission_running, latest_telemetry
