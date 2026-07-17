@@ -156,5 +156,8 @@ void loop() {
     // Send formatted telemetry string: S:temp,pH,salinity,turbidity,visibility
     Serial.printf("S:%.2f,%.2f,%.2f,%.2f,%.2f\n", 
                   tempC, current_ph, current_salinity, current_turbidity, current_visibility);
+                  
+    // Send raw voltages for debugging
+    Serial.printf("DEBUG_VOLTAGE: pH=%.2fV, TDS=%.2fV, Turb=%.2fV\n", phVoltage, tdsVoltage, turbVoltage);
   }
 }
