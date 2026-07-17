@@ -11,20 +11,21 @@ else:
 RADIO_BAUD = 9600
 
 def read_config(ser):
-    # E32 read config command is C1 C1 C1
-    ser.write(b'\xC1\xC1\xC1')
-    time.sleep(0.5)
-    if ser.in_waiting >= 6:
+    # Try up to 3 times to wake it up
+    for _ in range(3):
+        ser.reset_input_buffer()
+        ser.write(b'\xC1\xC1\xC1')
         data = ser.read(6)
-        return list(data)
+        if len(data) == 6:
+            return list(data)
+        time.sleep(0.5)
     return None
 
 def write_config(ser, config_bytes):
-    # E32 write config permanent is C0 + 5 bytes
+    ser.reset_input_buffer()
     ser.write(bytes(config_bytes))
-    time.sleep(0.5)
-    if ser.in_waiting >= 6:
-        data = ser.read(6)
+    data = ser.read(6)
+    if len(data) == 6:
         return list(data)
     return None
 
