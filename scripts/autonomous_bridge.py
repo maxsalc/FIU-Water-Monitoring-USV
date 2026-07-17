@@ -12,12 +12,19 @@ ESP32_BAUD = 115200
 latest_telemetry = ""
 mission_running = False
 
+def robust_write(ser, text):
+    """Sends strings byte-by-byte to prevent UART clock-drift corruption on SBCs"""
+    for char in text:
+        ser.write(char.encode('utf-8'))
+        ser.flush()
+        time.sleep(0.002) # 2ms delay resets the UART start/stop bit framing
+
 def run_mission(esp32_ser, radio_ser):
     global mission_running, latest_telemetry
     mission_running = True
     
     print("\n[AUTONOMY] Starting Mission Sequence...")
-    radio_ser.write(b"ACK: Mission Started\n")
+    robust_write(radio_ser, "ACK: Mission Started\n")
     
     # Sequence: Forward, Left, Forward, Right, Right, Down(Bwd), Stop, Sample
     sequence = [
@@ -42,7 +49,7 @@ def run_mission(esp32_ser, radio_ser):
     print(f"[AUTONOMY] Findings: {result}")
     
     # Transmit to Laptop
-    radio_ser.write(f"MISSION_COMPLETE: {result}\n".encode('utf-8'))
+    robust_write(radio_ser, f"MISSION_COMPLETE: {result}\n")
     
     mission_running = False
 
