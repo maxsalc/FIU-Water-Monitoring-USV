@@ -3,7 +3,7 @@ import time
 import msvcrt
 import sys
 
-RADIO_PORT = 'COM4'
+RADIO_PORT = 'COM6'
 RADIO_BAUD = 9600
 
 def main():
