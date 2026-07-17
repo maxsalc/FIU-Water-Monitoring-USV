@@ -18,6 +18,8 @@ def read_config(ser):
         data = ser.read(6)
         if len(data) == 6:
             return list(data)
+        elif len(data) > 0:
+            print(f"[DEBUG] Received partial response: {[hex(b) for b in data]}")
         time.sleep(0.5)
     return None
 
