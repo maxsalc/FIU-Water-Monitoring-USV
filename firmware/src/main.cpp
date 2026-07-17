@@ -13,6 +13,12 @@
 #define IN4 12
 #define ENB 13
 
+// Analog Sensor Pins
+#define PIN_PH 36
+#define PIN_TDS 39
+#define PIN_TURBIDITY 34
+#define PIN_VISIBILITY 35
+
 // Sensors
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
@@ -21,11 +27,8 @@ DallasTemperature sensors(&oneWire);
 unsigned long lastTelemetryTime = 0;
 const unsigned long TELEMETRY_INTERVAL = 1000; // Send data every 1 second
 
-// Sensor Placeholder Variables (to be implemented later)
-float current_ph = 7.1;
-float current_salinity = 35.0;
-float current_turbidity = 12.5;
-float current_visibility = 98.2;
+// Calibration Offsets
+#define PH_NEUTRAL_VOLTAGE 1.50 
 
 void setupMotors() {
   pinMode(ENA, OUTPUT);
@@ -35,7 +38,6 @@ void setupMotors() {
   pinMode(IN4, OUTPUT);
   pinMode(ENB, OUTPUT);
   
-  // Stop motors initially
   digitalWrite(IN1, LOW);
   digitalWrite(IN2, LOW);
   digitalWrite(IN3, LOW);
@@ -45,11 +47,9 @@ void setupMotors() {
 }
 
 void setMotors(int left_pwm, int right_pwm) {
-  // Constrain PWM to 0-255
   left_pwm = constrain(left_pwm, -255, 255);
   right_pwm = constrain(right_pwm, -255, 255);
 
-  // Left Motor Direction
   if (left_pwm >= 0) {
     digitalWrite(IN1, HIGH);
     digitalWrite(IN2, LOW);
@@ -59,7 +59,6 @@ void setMotors(int left_pwm, int right_pwm) {
   }
   analogWrite(ENA, abs(left_pwm));
 
-  // Right Motor Direction
   if (right_pwm >= 0) {
     digitalWrite(IN3, HIGH);
     digitalWrite(IN4, LOW);
@@ -70,22 +69,34 @@ void setMotors(int left_pwm, int right_pwm) {
   analogWrite(ENB, abs(right_pwm));
 }
 
+float readVoltage(int pin) {
+  // ESP32 12-bit ADC (0-4095) mapped to 0-3.3V
+  int raw = analogRead(pin);
+  return (raw / 4095.0) * 3.3;
+}
+
 void setup() {
   Serial.begin(115200);
   sensors.begin();
   setupMotors();
-  Serial.println("ESP32 ROS Hardware Node Initialized");
+  
+  // Set ADC attenuation to allow measuring up to 3.3V
+  analogSetPinAttenuation(PIN_PH, ADC_11db);
+  analogSetPinAttenuation(PIN_TDS, ADC_11db);
+  analogSetPinAttenuation(PIN_TURBIDITY, ADC_11db);
+  analogSetPinAttenuation(PIN_VISIBILITY, ADC_11db);
+  
+  Serial.println("ESP32 ROS Hardware Node Initialized with Sensors");
 }
 
 void loop() {
-  // 1. DOWNSTREAM: Read incoming commands from Orange Pi (ROS)
+  // 1. DOWNSTREAM: Read incoming commands from Orange Pi
   if (Serial.available() > 0) {
     String command = Serial.readStringUntil('\n');
     command.trim();
 
-    // Check if it's a Motor Command (e.g., "M:200,-200")
     if (command.startsWith("M:")) {
-      command.remove(0, 2); // Remove "M:"
+      command.remove(0, 2); 
       
       int commaIndex = command.indexOf(',');
       if (commaIndex > 0) {
@@ -100,14 +111,47 @@ void loop() {
     }
   }
 
-  // 2. UPSTREAM: Send sensor telemetry to Orange Pi (ROS) periodically
+  // 2. UPSTREAM: Send sensor telemetry to Orange Pi periodically
   if (millis() - lastTelemetryTime >= TELEMETRY_INTERVAL) {
     lastTelemetryTime = millis();
     
-    // Read real temperature
+    // -- READ TEMPERATURE --
     sensors.requestTemperatures(); 
     float tempC = sensors.getTempCByIndex(0);
-    if (tempC == DEVICE_DISCONNECTED_C) tempC = -999.0;
+    if (tempC == DEVICE_DISCONNECTED_C) tempC = 25.0; // Fallback to 25C for TDS compensation if disconnected
+
+    // -- READ pH (DFRobot Analog pH V2) --
+    float phVoltage = readVoltage(PIN_PH);
+    // Generic DFRobot pH formula (requires manual calibration offsets for true accuracy)
+    float current_ph = 7.0 - ((phVoltage - PH_NEUTRAL_VOLTAGE) * 3.1);
+
+    // -- READ TDS (DFRobot TDS V1.0) --
+    float tdsVoltage = readVoltage(PIN_TDS);
+    // Temperature compensation
+    float compensationCoefficient = 1.0 + 0.02 * (tempC - 25.0);
+    float compensationVoltage = tdsVoltage / compensationCoefficient;
+    float current_salinity = (133.42 * pow(compensationVoltage, 3) - 255.86 * pow(compensationVoltage, 2) + 857.39 * compensationVoltage) * 0.5;
+    if (current_salinity < 0) current_salinity = 0;
+
+    // -- READ TURBIDITY (DFRobot Turbidity V1.0) --
+    float turbVoltage = readVoltage(PIN_TURBIDITY);
+    float current_turbidity = 0.0;
+    
+    // NOTE: If Turbidity sensor is powered by 5V, voltage can reach 4.5V! 
+    // This math assumes a voltage divider is used to step 4.5V down to 3.3V max.
+    // If powered directly by 3.3V, the sensor's internal math shifts.
+    if (turbVoltage < 2.5) {
+      current_turbidity = 3000; // Max turbidity
+    } else if (turbVoltage > 4.2) {
+      current_turbidity = 0;    // Perfectly clear
+    } else {
+      current_turbidity = -1120.4 * turbVoltage * turbVoltage + 5742.3 * turbVoltage - 4352.9;
+    }
+    if (current_turbidity < 0) current_turbidity = 0;
+
+    // -- READ VISIBILITY (Generic Analog Placeholder) --
+    float visVoltage = readVoltage(PIN_VISIBILITY);
+    float current_visibility = (visVoltage / 3.3) * 100.0;
 
     // Send formatted telemetry string: S:temp,pH,salinity,turbidity,visibility
     Serial.printf("S:%.2f,%.2f,%.2f,%.2f,%.2f\n", 
