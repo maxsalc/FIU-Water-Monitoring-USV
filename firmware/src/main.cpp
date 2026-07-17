@@ -15,9 +15,9 @@
 
 // Analog Sensor Pins
 #define PIN_PH 36
-#define PIN_TDS 39
+#define PIN_TDS 35
 #define PIN_TURBIDITY 34
-#define PIN_VISIBILITY 35
+#define PIN_VISIBILITY 39
 
 // Sensors
 OneWire oneWire(ONE_WIRE_BUS);
