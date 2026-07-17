@@ -13,7 +13,7 @@ def main():
     print("Connecting to Radio...")
     
     try:
-        radio = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=1)
+        radio = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=0.1)
     except Exception as e:
         print(f"Failed to open {RADIO_PORT}: {e}")
         return
@@ -28,14 +28,24 @@ def main():
     print(" ESC : Exit")
     print("----------------")
     
-    print("Ready to send commands... (Make sure this terminal is selected!)")
+    print("Ready to send/receive... (Terminal must be selected!)")
     
     last_key = None
     
     while True:
+        # 1. READ Incoming Telemetry from Radio
+        if radio.in_waiting > 0:
+            try:
+                line = radio.readline().decode('utf-8', errors='ignore').strip()
+                if line:
+                    print(f"\r[TELEMETRY] {line}                   ")
+                    print("Send Command (W/A/S/D/SPACE): ", end="", flush=True)
+            except Exception as e:
+                pass
+
+        # 2. WRITE Outgoing Keyboard Commands to Radio
         if msvcrt.kbhit():
             key_bytes = msvcrt.getch()
-            # Handle special keys (arrows, esc)
             if key_bytes == b'\x1b': # ESC
                 break
                 
@@ -56,8 +66,8 @@ def main():
             elif key == ' ':
                 msg = "STOP"
 
-            if msg and msg != last_key: # Only print/send if it changed (prevents spamming if held down)
-                print(f"Broadcasting: {msg}")
+            if msg and msg != last_key:
+                print(f"\nBroadcasting Command: {msg}")
                 radio.write(f"{msg}\n".encode('utf-8'))
                 last_key = msg
                 
