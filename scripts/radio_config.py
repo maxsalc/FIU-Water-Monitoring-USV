@@ -50,6 +50,9 @@ def main():
     
     try:
         ser = serial.Serial(RADIO_PORT, RADIO_BAUD, timeout=1)
+        # Give the USB-to-Serial chip a moment to settle after opening the port
+        time.sleep(2)
+        ser.reset_input_buffer()
     except Exception as e:
         print(f"Error opening port: {e}")
         return
