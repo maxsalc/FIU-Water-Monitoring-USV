@@ -1,33 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>USV Dashboard</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USV Mission Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>USV Water Monitoring Dashboard</h1>
+    <header class="topbar">
+        <div class="brand"><span class="brand-mark">⌁</span><div><strong>SEASTATE</strong><span>USV MISSION CONTROL</span></div></div>
+        <div class="connection"><span class="pulse"></span><span id="status">Connecting to vehicle...</span><span class="mono muted" id="last-updated">--</span></div>
+        <button class="icon-button" id="refresh-button" title="Refresh telemetry">↻</button>
+    </header>
 
-    <p id="status">Checking backend...</p>
+    <main class="shell">
+        <section class="hero-row">
+            <div><p class="eyebrow">FIELD OPERATIONS / <span id="mission-date"></span></p><h1>Water monitoring<br><em>mission control.</em></h1></div>
+            <div class="mission-state"><span class="state-dot"></span><div><span class="eyebrow">VEHICLE STATE</span><strong id="mode">AUTO</strong></div></div>
+        </section>
 
-    <div id="dashboard-layout">
-        <div id="map"></div>
+        <section class="telemetry-grid">
+            <article class="metric-card accent"><div class="metric-label">BATTERY <span>V</span></div><div class="metric-value"><span id="battery">--</span><small>V</small></div><div class="metric-foot"><span class="bar"><i id="battery-bar"></i></span><span id="battery-health">Nominal</span></div></article>
+            <article class="metric-card"><div class="metric-label">WATER TEMP <span>°C</span></div><div class="metric-value"><span id="temp">--</span><small>°C</small></div><div class="metric-foot"><span class="metric-note">Probe 01</span><span class="ok">● LIVE</span></div></article>
+            <article class="metric-card"><div class="metric-label">ACIDITY <span>PH</span></div><div class="metric-value"><span id="ph">--</span><small>pH</small></div><div class="metric-foot"><span class="metric-note">Target 6.5–8.5</span><span class="ok">● IN RANGE</span></div></article>
+            <article class="metric-card"><div class="metric-label">TURBIDITY <span>NTU</span></div><div class="metric-value"><span id="turbidity">--</span><small>NTU</small></div><div class="metric-foot"><span class="metric-note">Optical sensor</span><span class="warn">● SAMPLE</span></div></article>
+            <article class="metric-card"><div class="metric-label">CONDUCTIVITY <span>TDS</span></div><div class="metric-value"><span id="tds">--</span><small>ppm</small></div><div class="metric-foot"><span class="metric-note">Water quality</span><span class="ok">● LIVE</span></div></article>
+        </section>
 
-        <div id="telemetry-panel">
-            <h2>Telemetry</h2>
-
-            <p>Latitude: <span id="lat">--</span></p>
-            <p>Longitude: <span id="lon">--</span></p>
-            <p>Battery: <span id="battery">--</span> V</p>
-            <p>Temperature: <span id="temp">--</span> °C</p>
-            <p>pH: <span id="ph">--</span></p>
-            <p>Turbidity: <span id="turbidity">--</span></p>
-            <p>TDS: <span id="tds">--</span></p>
-            <p>Mode: <span id="mode">--</span></p>
-        </div>
-    </div>
-
+        <section class="workspace">
+            <div class="map-panel panel"><div class="panel-head"><div><span class="eyebrow">NAVIGATION</span><h2>Survey area</h2></div><div class="map-tools"><button class="tool-button active" id="waypoint-mode">＋ Add waypoint</button><button class="tool-button" id="clear-route">Clear route</button></div></div><div id="map"></div><div class="map-legend"><span><i class="legend-dot vehicle"></i> USV position</span><span><i class="legend-dot waypoint"></i> Waypoint</span><span><i class="legend-line"></i> Planned route</span><span class="coordinates mono" id="coordinates">LAT -- / LON --</span></div></div>
+            <aside class="side-column">
+                <div class="panel mission-panel"><div class="panel-head"><div><span class="eyebrow">MISSION PLAN</span><h2>Waypoint route</h2></div><span class="count" id="waypoint-count">0</span></div><p class="helper" id="waypoint-helper">Click “Add waypoint,” then select points on the map.</p><ol class="waypoint-list" id="waypoint-list"></ol><div class="mission-actions"><button class="primary-button" id="start-mission">▶ Start mission</button><button class="secondary-button" id="pause-mission">Ⅱ Pause</button></div></div>
+                <div class="panel position-panel"><div class="panel-head"><div><span class="eyebrow">POSITION FIX</span><h2>Vehicle location</h2></div><span class="fix-badge">GPS FIX</span></div><div class="coordinates-large"><span id="lat">--</span><small>LATITUDE</small><span id="lon">--</span><small>LONGITUDE</small></div><div class="heading-row"><span>HEADING</span><strong>—</strong><span class="mono">HDG</span></div></div>
+            </aside>
+        </section>
+        <footer><span>FIU WATER MONITORING USV</span><span class="mono">SYSTEM BUILD 0.1.0</span><span>TELEMETRY REFRESH <strong>1 SEC</strong></span></footer>
+    </main>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="app.js"></script>
 </body>
