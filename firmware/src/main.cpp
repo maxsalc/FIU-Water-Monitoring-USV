@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <TinyGPSPlus.h>
 
 // --- HARDWARE PINS ---
 #define ONE_WIRE_BUS 4
@@ -13,15 +14,20 @@
 #define IN4 12
 #define ENB 13
 
-// Analog Sensor Pins
+// Sensor Pins
 #define PIN_PH 36
 #define PIN_TDS 35
-#define PIN_TURBIDITY 34
+#define PIN_TURBIDITY 34 // Digital Input mode (GPIO 34)
 #define PIN_VISIBILITY 39
 
-// Sensors
+// GPS UART Pins (HardwareSerial2)
+#define GPS_RX_PIN 16 // ESP32 RX2 (Connect to GPS TXD)
+#define GPS_TX_PIN 17 // ESP32 TX2 (Connect to GPS RXD)
+
+// Sensors & GPS
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
+TinyGPSPlus gps;
 
 // Timing
 unsigned long lastTelemetryTime = 0;
@@ -77,19 +83,30 @@ float readVoltage(int pin) {
 
 void setup() {
   Serial.begin(115200);
+  
+  // Initialize GPS on Serial2
+  Serial2.begin(9600, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN);
+  
   sensors.begin();
   setupMotors();
   
-  // Set ADC attenuation to allow measuring up to 3.3V
+  // Set Turbidity Pin as Digital Input
+  pinMode(PIN_TURBIDITY, INPUT);
+  
+  // Set ADC attenuation for analog sensors
   analogSetPinAttenuation(PIN_PH, ADC_11db);
   analogSetPinAttenuation(PIN_TDS, ADC_11db);
-  analogSetPinAttenuation(PIN_TURBIDITY, ADC_11db);
   analogSetPinAttenuation(PIN_VISIBILITY, ADC_11db);
   
-  Serial.println("ESP32 ROS Hardware Node Initialized with Sensors");
+  Serial.println("ESP32 ROS Hardware Node Initialized with Sensors & GPS");
 }
 
 void loop() {
+  // 0. CONTINUOUSLY READ GPS SENTENCES
+  while (Serial2.available() > 0) {
+    gps.encode(Serial2.read());
+  }
+
   // 1. DOWNSTREAM: Read incoming commands from Orange Pi
   if (Serial.available() > 0) {
     String command = Serial.readStringUntil('\n');
@@ -111,7 +128,7 @@ void loop() {
     }
   }
 
-  // 2. UPSTREAM: Send sensor telemetry to Orange Pi periodically
+  // 2. UPSTREAM: Send sensor & GPS telemetry to Orange Pi periodically
   if (millis() - lastTelemetryTime >= TELEMETRY_INTERVAL) {
     lastTelemetryTime = millis();
     
@@ -122,42 +139,35 @@ void loop() {
 
     // -- READ pH (DFRobot Analog pH V2) --
     float phVoltage = readVoltage(PIN_PH);
-    // Generic DFRobot pH formula (requires manual calibration offsets for true accuracy)
     float current_ph = 7.0 - ((phVoltage - PH_NEUTRAL_VOLTAGE) * 3.1);
 
     // -- READ TDS (DFRobot TDS V1.0) --
     float tdsVoltage = readVoltage(PIN_TDS);
-    // Temperature compensation
     float compensationCoefficient = 1.0 + 0.02 * (tempC - 25.0);
     float compensationVoltage = tdsVoltage / compensationCoefficient;
     float current_salinity = (133.42 * pow(compensationVoltage, 3) - 255.86 * pow(compensationVoltage, 2) + 857.39 * compensationVoltage) * 0.5;
     if (current_salinity < 0) current_salinity = 0;
 
-    // -- READ TURBIDITY (DFRobot Turbidity V1.0) --
-    float turbVoltage = readVoltage(PIN_TURBIDITY);
-    float current_turbidity = 0.0;
-    
-    // NOTE: If Turbidity sensor is powered by 5V, voltage can reach 4.5V! 
-    // This math assumes a voltage divider is used to step 4.5V down to 3.3V max.
-    // If powered directly by 3.3V, the sensor's internal math shifts.
-    if (turbVoltage < 2.5) {
-      current_turbidity = 3000; // Max turbidity
-    } else if (turbVoltage > 4.2) {
-      current_turbidity = 0;    // Perfectly clear
-    } else {
-      current_turbidity = -1120.4 * turbVoltage * turbVoltage + 5742.3 * turbVoltage - 4352.9;
-    }
-    if (current_turbidity < 0) current_turbidity = 0;
+    // -- READ TURBIDITY (Digital Mode) --
+    int turbDigital = digitalRead(PIN_TURBIDITY);
+    // DFRobot Digital Mode: HIGH = Clear Water (0 NTU), LOW = Turbid Water (3000 NTU)
+    float current_turbidity = (turbDigital == HIGH) ? 0.0 : 3000.0;
 
     // -- READ VISIBILITY (Generic Analog Placeholder) --
     float visVoltage = readVoltage(PIN_VISIBILITY);
     float current_visibility = (visVoltage / 3.3) * 100.0;
 
-    // Send formatted telemetry string: S:temp,pH,salinity,turbidity,visibility
-    Serial.printf("S:%.2f,%.2f,%.2f,%.2f,%.2f\n", 
-                  tempC, current_ph, current_salinity, current_turbidity, current_visibility);
+    // -- READ GPS LOCATION --
+    double current_lat = gps.location.isValid() ? gps.location.lat() : 0.0;
+    double current_lng = gps.location.isValid() ? gps.location.lng() : 0.0;
+    int satellites = gps.satellites.isValid() ? gps.satellites.value() : 0;
+
+    // Send formatted telemetry string: S:temp,pH,salinity,turbidity,visibility,lat,lng
+    Serial.printf("S:%.2f,%.2f,%.2f,%.2f,%.2f,%.6f,%.6f\n", 
+                  tempC, current_ph, current_salinity, current_turbidity, current_visibility, current_lat, current_lng);
                   
-    // Send raw voltages for debugging
-    Serial.printf("DEBUG_VOLTAGE: pH=%.2fV, TDS=%.2fV, Turb=%.2fV\n", phVoltage, tdsVoltage, turbVoltage);
+    // Send raw debug status
+    Serial.printf("DEBUG_VOLTAGE: pH=%.2fV, TDS=%.2fV, TurbDig=%d, GPS_Sats=%d\n", 
+                  phVoltage, tdsVoltage, turbDigital, satellites);
   }
 }
