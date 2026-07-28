@@ -63,8 +63,11 @@ def main():
         if line:
             if line.startswith("S:"):
                 raw_data = line[2:].split(',')
-                if len(raw_data) == 4:
-                    temp, salinity, lat, lng = raw_data[0], raw_data[1], raw_data[2], raw_data[3]
+                if len(raw_data) >= 4:
+                    temp = raw_data[0]
+                    salinity = raw_data[1]
+                    lat = raw_data[-2]
+                    lng = raw_data[-1]
                     print(f"\r[TELEMETRY] Temp: {temp}°C | Salinity: {salinity} ppm | Lat: {lat} | Lng: {lng}                   ")
                 else:
                     print(f"\r[TELEMETRY] {line}                   ")
