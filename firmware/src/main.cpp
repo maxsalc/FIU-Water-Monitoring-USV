@@ -6,13 +6,11 @@
 // --- HARDWARE PINS ---
 #define ONE_WIRE_BUS 4
 
-// Motor Driver Pins
-#define ENA 25
-#define IN1 26
-#define IN2 27
-#define IN3 14
-#define IN4 12
-#define ENB 13
+// Motor Driver Pins (Clean non-strapping GPIOs)
+#define IN1 25
+#define IN2 26
+#define IN3 27
+#define IN4 19
 
 // Sensor Pins
 #define PIN_PH 36
