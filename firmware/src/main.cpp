@@ -36,7 +36,7 @@ HardwareSerial RadioSerial(1);
 
 // Timing
 unsigned long lastTelemetryTime = 0;
-const unsigned long TELEMETRY_INTERVAL = 2000; // Send telemetry every 2 seconds to respect LoRa bandwidth
+const unsigned long TELEMETRY_INTERVAL = 1000; // Send telemetry every 1 second for faster responsive data
 
 // Calibration Offsets
 #define PH_NEUTRAL_VOLTAGE 1.50 
@@ -95,6 +95,7 @@ void setup() {
   RadioSerial.begin(9600, SERIAL_8N1, RADIO_RX_PIN, RADIO_TX_PIN);
   
   sensors.begin();
+  sensors.setResolution(10); // 10-bit resolution (187.5ms conversion time vs 750ms 12-bit)
   setupMotors();
   
   pinMode(PIN_TURBIDITY, INPUT_PULLUP);
