@@ -41,50 +41,74 @@ const unsigned long TELEMETRY_INTERVAL = 1000; // Send telemetry every 1 second 
 // Calibration Offsets
 #define PH_NEUTRAL_VOLTAGE 1.50 
 
+// PWM Properties for ESP32 LEDC
+const int PWM_FREQ = 30000;
+const int PWM_RES = 8;
+const int CH_LEFT = 0;
+const int CH_RIGHT = 1;
+
 void setupMotors() {
-  pinMode(ENA, OUTPUT);
   pinMode(IN1, OUTPUT);
   pinMode(IN2, OUTPUT);
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
-  pinMode(ENB, OUTPUT);
   
   digitalWrite(IN1, LOW);
   digitalWrite(IN2, LOW);
   digitalWrite(IN3, LOW);
   digitalWrite(IN4, LOW);
-  digitalWrite(ENA, LOW);
-  digitalWrite(ENB, LOW);
+
+  #if defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
+    ledcAttachChannel(ENA, PWM_FREQ, PWM_RES, CH_LEFT);
+    ledcAttachChannel(ENB, PWM_FREQ, PWM_RES, CH_RIGHT);
+    ledcWrite(ENA, 0);
+    ledcWrite(ENB, 0);
+  #else
+    ledcSetup(CH_LEFT, PWM_FREQ, PWM_RES);
+    ledcAttachPin(ENA, CH_LEFT);
+    ledcSetup(CH_RIGHT, PWM_FREQ, PWM_RES);
+    ledcAttachPin(ENB, CH_RIGHT);
+    ledcWrite(CH_LEFT, 0);
+    ledcWrite(CH_RIGHT, 0);
+  #endif
 }
 
 void setMotors(int left_pwm, int right_pwm) {
+  left_pwm = constrain(left_pwm, -255, 255);
+  right_pwm = constrain(right_pwm, -255, 255);
+
+  // Left Motor Direction
   if (left_pwm > 0) {
-    digitalWrite(IN1, HIGH);
-    digitalWrite(IN2, LOW);
-    digitalWrite(ENA, HIGH);
-  } else if (left_pwm < 0) {
     digitalWrite(IN1, LOW);
     digitalWrite(IN2, HIGH);
-    digitalWrite(ENA, HIGH);
+  } else if (left_pwm < 0) {
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
   } else {
     digitalWrite(IN1, LOW);
     digitalWrite(IN2, LOW);
-    digitalWrite(ENA, LOW);
   }
 
+  // Right Motor Direction
   if (right_pwm > 0) {
-    digitalWrite(IN3, HIGH);
-    digitalWrite(IN4, LOW);
-    digitalWrite(ENB, HIGH);
-  } else if (right_pwm < 0) {
     digitalWrite(IN3, LOW);
     digitalWrite(IN4, HIGH);
-    digitalWrite(ENB, HIGH);
+  } else if (right_pwm < 0) {
+    digitalWrite(IN3, HIGH);
+    digitalWrite(IN4, LOW);
   } else {
     digitalWrite(IN3, LOW);
     digitalWrite(IN4, LOW);
-    digitalWrite(ENB, LOW);
   }
+
+  // Write Speed via LEDC PWM
+  #if defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
+    ledcWrite(ENA, abs(left_pwm));
+    ledcWrite(ENB, abs(right_pwm));
+  #else
+    ledcWrite(CH_LEFT, abs(left_pwm));
+    ledcWrite(CH_RIGHT, abs(right_pwm));
+  #endif
 }
 
 float readVoltage(int pin) {
