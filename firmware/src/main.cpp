@@ -53,31 +53,38 @@ void setupMotors() {
   digitalWrite(IN2, LOW);
   digitalWrite(IN3, LOW);
   digitalWrite(IN4, LOW);
-  analogWrite(ENA, 0);
-  analogWrite(ENB, 0);
+  digitalWrite(ENA, LOW);
+  digitalWrite(ENB, LOW);
 }
 
 void setMotors(int left_pwm, int right_pwm) {
-  left_pwm = constrain(left_pwm, -255, 255);
-  right_pwm = constrain(right_pwm, -255, 255);
-
-  if (left_pwm >= 0) {
+  if (left_pwm > 0) {
     digitalWrite(IN1, HIGH);
     digitalWrite(IN2, LOW);
-  } else {
+    digitalWrite(ENA, HIGH);
+  } else if (left_pwm < 0) {
     digitalWrite(IN1, LOW);
     digitalWrite(IN2, HIGH);
+    digitalWrite(ENA, HIGH);
+  } else {
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+    digitalWrite(ENA, LOW);
   }
-  analogWrite(ENA, abs(left_pwm));
 
-  if (right_pwm >= 0) {
+  if (right_pwm > 0) {
     digitalWrite(IN3, HIGH);
     digitalWrite(IN4, LOW);
-  } else {
+    digitalWrite(ENB, HIGH);
+  } else if (right_pwm < 0) {
     digitalWrite(IN3, LOW);
     digitalWrite(IN4, HIGH);
+    digitalWrite(ENB, HIGH);
+  } else {
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);
+    digitalWrite(ENB, LOW);
   }
-  analogWrite(ENB, abs(right_pwm));
 }
 
 float readVoltage(int pin) {
@@ -109,17 +116,18 @@ void setup() {
 
 void processCommand(String command) {
   command.trim();
+  command.toUpperCase();
   Serial.printf("[COMMAND RECV] %s\n", command.c_str());
   
-  if (command == "FWD") {
-    setMotors(200, 200);
-  } else if (command == "BWD") {
-    setMotors(-200, -200);
-  } else if (command == "LEFT") {
-    setMotors(-150, 150);
-  } else if (command == "RIGHT") {
-    setMotors(150, -150);
-  } else if (command == "STOP") {
+  if (command == "FWD" || command == "FORWARD" || command == "W") {
+    setMotors(255, 255);
+  } else if (command == "BWD" || command == "BACKWARD" || command == "S") {
+    setMotors(-255, -255);
+  } else if (command == "LEFT" || command == "A") {
+    setMotors(-255, 255);
+  } else if (command == "RIGHT" || command == "D") {
+    setMotors(255, -255);
+  } else if (command == "STOP" || command == " ") {
     setMotors(0, 0);
   } else if (command.startsWith("M:")) {
     command.remove(0, 2);
