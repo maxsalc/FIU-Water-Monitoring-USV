@@ -183,17 +183,17 @@ void loop() {
     double current_lng = gps.location.isValid() ? gps.location.lng() : 0.0;
     int satellites = gps.satellites.isValid() ? gps.satellites.value() : 0;
 
-    // Format telemetry string (Active sensors: Temp, Salinity, Turbidity, Lat, Lng)
+    // Format telemetry string (Active sensors ONLY: Temp, Salinity, Lat, Lng)
     char teleBuf[128];
-    snprintf(teleBuf, sizeof(teleBuf), "S:%.2f,%.2f,%.2f,%.6f,%.6f\n", 
-             tempC, current_salinity, current_turbidity, current_lat, current_lng);
+    snprintf(teleBuf, sizeof(teleBuf), "S:%.2f,%.2f,%.6f,%.6f\n", 
+             tempC, current_salinity, current_lat, current_lng);
 
     // Broadcast directly over LoRa Radio to Laptop!
     RadioSerial.print(teleBuf);
     
     // Print to local USB Serial for debugging
     Serial.print(teleBuf);
-    Serial.printf("DEBUG_VOLTAGE: TDS=%.2fV, TurbDig=%d, GPS_Sats=%d\n", 
-                  tdsVoltage, turbDigital, satellites);
+    Serial.printf("DEBUG_VOLTAGE: TDS=%.2fV, GPS_Sats=%d\n", 
+                  tdsVoltage, satellites);
   }
 }

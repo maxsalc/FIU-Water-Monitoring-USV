@@ -62,7 +62,12 @@ def main():
         line = radio.readline()
         if line:
             if line.startswith("S:"):
-                print(f"\r[TELEMETRY] {line}                   ")
+                raw_data = line[2:].split(',')
+                if len(raw_data) == 4:
+                    temp, salinity, lat, lng = raw_data[0], raw_data[1], raw_data[2], raw_data[3]
+                    print(f"\r[TELEMETRY] Temp: {temp}°C | Salinity: {salinity} ppm | Lat: {lat} | Lng: {lng}                   ")
+                else:
+                    print(f"\r[TELEMETRY] {line}                   ")
                 print("Send Command (W/A/S/D/SPACE): ", end="", flush=True)
 
         # 2. WRITE Outgoing Keyboard Commands to Radio
