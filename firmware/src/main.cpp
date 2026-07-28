@@ -41,8 +41,8 @@ const unsigned long TELEMETRY_INTERVAL = 1000; // Send telemetry every 1 second 
 // Calibration Offsets
 #define PH_NEUTRAL_VOLTAGE 1.50 
 
-// PWM Properties for ESP32 LEDC
-const int PWM_FREQ = 30000;
+// PWM Properties for ESP32 LEDC (LastMinuteEngineers 1000Hz)
+const int PWM_FREQ = 1000;
 const int PWM_RES = 8;
 const int CH_LEFT = 0;
 const int CH_RIGHT = 1;
@@ -74,6 +74,9 @@ void setupMotors() {
 }
 
 void setMotors(int left_pwm, int right_pwm) {
+  left_pwm = constrain(left_pwm, -255, 255);
+  right_pwm = constrain(right_pwm, -255, 255);
+
   // Left Motor (IN1 = HIGH, IN2 = LOW for Forward)
   if (left_pwm > 0) {
     digitalWrite(IN1, HIGH);
@@ -97,6 +100,15 @@ void setMotors(int left_pwm, int right_pwm) {
     digitalWrite(IN3, LOW);
     digitalWrite(IN4, LOW);
   }
+
+  // Write Speed via LEDC PWM (LastMinuteEngineers API)
+  #if defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
+    ledcWrite(ENA, abs(left_pwm));
+    ledcWrite(ENB, abs(right_pwm));
+  #else
+    ledcWrite(CH_LEFT, abs(left_pwm));
+    ledcWrite(CH_RIGHT, abs(right_pwm));
+  #endif
 }
 
 float readVoltage(int pin) {
