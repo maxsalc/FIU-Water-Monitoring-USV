@@ -25,8 +25,8 @@
 #define GPS_TX_PIN 17 // ESP32 TX2 (Connect to GPS RXD)
 
 // Radio UART Pins (HardwareSerial1 - Emergency Direct LoRa)
-#define RADIO_RX_PIN 22 // ESP32 RX1 (Connect to Radio TXD)
-#define RADIO_TX_PIN 23 // ESP32 TX1 (Connect to Radio RXD)
+#define RADIO_RX_PIN 32 // ESP32 RX1 (Connect to Radio TXD)
+#define RADIO_TX_PIN 33 // ESP32 TX1 (Connect to Radio RXD)
 
 // Sensors, GPS, and Radio
 OneWire oneWire(ONE_WIRE_BUS);
